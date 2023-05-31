@@ -1,3 +1,8 @@
+/*
+ * Nama  : Stephanie
+ * Email : stephaniewangsa@gmail.com
+ */
+
 /*Class stok dapat digunakan untuk
 - Input Stok
 - Edit Stok (Menambah, mengubah, menghapus stok)
