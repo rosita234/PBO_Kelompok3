@@ -7,16 +7,16 @@ import java.util.ArrayList;
 import java.time.LocalDateTime;
 
 public class History {
-    private LocalDateTime tanggal;
+    private String tanggal;
     private ArrayList historyArray;
     private String keterangan;
 
 
-    public LocalDateTime getTanggal() {
+    public String getTanggal() {
         return this.tanggal;
     }
 
-    public void setTanggal(LocalDateTime tanggal) {
+    public void setTanggal(String tanggal) {
         this.tanggal = tanggal;
     }
 
