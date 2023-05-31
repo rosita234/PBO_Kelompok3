@@ -30,3 +30,13 @@ public class StaffNode {
     }
 }
  */
+
+/*
+Class Staff
+ * Log In (Staff)
+ * Kasir
+ * Cek Stock (Harga, Jumlah, Nama, Promo, Kode barang)
+ * Mendaftarkan Membership
+ * Lihat Hsitory Penjualan
+ * Log out
+ */
