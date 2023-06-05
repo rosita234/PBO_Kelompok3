@@ -36,6 +36,6 @@ public class Membership {
 
     @Override
     public String toString(){
-        return String.format("%d %.2f", poin, promo);
+        return String.format("%d %.2f", poin, promo); 
     }
 }
