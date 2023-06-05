@@ -14,6 +14,7 @@ public class Pembeli {
         this.statusMember = statusMember;
     }
 
+
     public String getNama() {
         return this.nama;
     }
@@ -37,6 +38,8 @@ public class Pembeli {
     public void setStatusMember(String statusMember) {
         this.statusMember = statusMember;
     }
+
+    
 
 
 }
