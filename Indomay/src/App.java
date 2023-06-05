@@ -42,7 +42,6 @@ public class App {
         Stok odol = new Stok("S02", "Pasta Gigi", 12, 15000);
         Stok shampoo = new Stok("S03","Shampoo",10,50000);
 
-
         Membership poin1 = new Membership(100, 0.1);        
         Membership poin2 = new Membership(200, 0.2);
         Membership poin3 = new Membership(300, 0.3); 
@@ -55,6 +54,7 @@ public class App {
         Pembeli dua = new Pembeli("mark", "081287645797", "ya");
         Pembeli tiga = new Pembeli("john", "08135896470", "tidak");
 
+        
         
         Staff user1 = new Staff("Alfredo","pertemuan4");
     }

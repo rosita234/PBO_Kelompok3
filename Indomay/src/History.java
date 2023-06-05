@@ -10,7 +10,15 @@ public class History {
     private String tanggal;
     private ArrayList historyArray;
     private String keterangan;
+    private String jenis_transaksi;
 
+    public History(){}
+
+    public History(String tanggal, String keterangan, String jenis_transaksi){
+        this.jenis_transaksi = jenis_transaksi;
+        this.keterangan = keterangan;
+        this.tanggal = tanggal;
+    }
 
     public String getTanggal() {
         return this.tanggal;
@@ -36,4 +44,16 @@ public class History {
         this.keterangan = keterangan;
     }
 
+    public void setJenis_transaksi(String jenis_transaksi) {
+        this.jenis_transaksi = jenis_transaksi;
+    }
+
+    public String getJenis_transaksi() {
+        return jenis_transaksi;
+    }
+
+    @Override
+    public String toString(){
+        return String.format("Tanggal: %s Jenis Transaksi %s Keterangan %s", tanggal, jenis_transaksi, keterangan);
+    }
 }
