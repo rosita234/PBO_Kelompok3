@@ -10,7 +10,11 @@
 public class Posisi {
 
     private String status;
-
+    
+    public Posisi() {
+        
+    }
+    
     public String getStatus() {
         return this.status;
     }
