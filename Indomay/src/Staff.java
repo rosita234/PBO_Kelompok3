@@ -22,6 +22,8 @@ public class Staff{
     }
 
     public String toString(){
-        return "Staff [Name = " + name + ", Password = " + password + "]";
+        return "Staff: [Name = " + name + ", Password = " + password + "]";
+    }
+    public void Staff() {
     }
 }
