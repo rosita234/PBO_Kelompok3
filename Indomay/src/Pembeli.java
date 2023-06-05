@@ -8,12 +8,14 @@ public class Pembeli {
     public String noTelp;
     public String statusMember;
 
+    public Pembeli() {
+    }
+
     public Pembeli(String nama, String noTelp, String statusMember) {
         this.nama = nama;
         this.noTelp = noTelp;
         this.statusMember = statusMember;
     }
-
 
     public String getNama() {
         return this.nama;
@@ -38,9 +40,6 @@ public class Pembeli {
     public void setStatusMember(String statusMember) {
         this.statusMember = statusMember;
     }
-
-    
-
 
 }
 
