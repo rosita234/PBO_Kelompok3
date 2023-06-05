@@ -8,6 +8,9 @@ public class Pembeli {
     public String noTelp;
     public String statusMember;
 
+    public Pembeli() {
+    }
+
     public Pembeli(String nama, String noTelp, String statusMember) {
         this.nama = nama;
         this.noTelp = noTelp;
@@ -38,6 +41,14 @@ public class Pembeli {
         this.statusMember = statusMember;
     }
 
+    @Override
+    public String toString() {
+        return "{" +
+            " nama='" + getNama() + "'" +
+            ", noTelp='" + getNoTelp() + "'" +
+            ", statusMember='" + getStatusMember() + "'" +
+            "}";
+    }
 
 }
 
