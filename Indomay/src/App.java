@@ -2,7 +2,8 @@ import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) throws Exception{
-        
+        init();
+
         boolean choice = true;
         Scanner sc = new Scanner(System.in);
 
