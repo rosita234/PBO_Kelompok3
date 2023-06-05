@@ -8,6 +8,7 @@ public class Staff{
         this.name = name;
         this.password = password;
     }
+    //Constructor all Fields
     public String getName(){
         return name;
     }
@@ -20,10 +21,11 @@ public class Staff{
     public void setPassword(String b){
         this.password = b;
     }
-
+    //Constructor toString
     public String toString(){
         return "Staff: [Name = " + name + ", Password = " + password + "]";
     }
+    //Constuctor Empty
     public void Staff() {
     }
 }
