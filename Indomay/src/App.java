@@ -46,4 +46,8 @@ public class App {
         Posisi willie = new Posisi("Staff Toko", "Magang", "1.5 tahun");
     }
 
+    public static void Staff(){
+        Staff user1 = new Staff("Alfredo","pertemuan4");
+    }
+
 }
