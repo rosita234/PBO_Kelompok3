@@ -41,5 +41,14 @@ public class Pembeli {
         this.statusMember = statusMember;
     }
 
+    @Override
+    public String toString() {
+        return "{" +
+            " nama='" + getNama() + "'" +
+            ", noTelp='" + getNoTelp() + "'" +
+            ", statusMember='" + getStatusMember() + "'" +
+            "}";
+    }
+
 }
 
