@@ -45,7 +45,7 @@ public class App {
 
         Membership poin1 = new Membership(100, 0.1);        
         Membership poin2 = new Membership(200, 0.2);
-        Membership poin3 = new Membership(300, 0.3);
+        Membership poin3 = new Membership(300, 0.3); 
 
         Posisi mickey = new Posisi("Kasir", "Magang", "1 tahun");
         Posisi jackie = new Posisi("Admin", "Karyawan Tetap", null);
