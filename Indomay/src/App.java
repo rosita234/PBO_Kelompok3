@@ -44,10 +44,10 @@ public class App {
         Posisi mickey = new Posisi("Kasir", "Magang", "1 tahun");
         Posisi jackie = new Posisi("Admin", "Karyawan Tetap", null);
         Posisi willie = new Posisi("Staff Toko", "Magang", "1.5 tahun");
-    }
 
-    public static void Staff(){
         Staff user1 = new Staff("Alfredo","pertemuan4");
     }
+
+
 
 }
