@@ -41,6 +41,7 @@ public class Pembeli {
         this.statusMember = statusMember;
     }
 
+    
     @Override
     public String toString() {
         return "{" +
