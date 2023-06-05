@@ -2,7 +2,8 @@ import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) throws Exception{
-        
+        init();
+
         boolean choice = true;
         Scanner sc = new Scanner(System.in);
 
@@ -34,13 +35,18 @@ public class App {
         System.out.println("5. Exit");
     }
 
-    public static void init(){
+    public static void init() {
         Stok sabun = new Stok("S01", "Sabun Mandi", 10, 20000);
         Stok odol = new Stok("S02", "Pasta Gigi", 12, 15000);
         Stok shampoo = new Stok("S03","Shampoo",10,50000);
 
-        Membership poin1 = new Membership(100, 0.1);
+        Membership poin1 = new Membership(100, 0.1);        
         Membership poin2 = new Membership(200, 0.2);
         Membership poin3 = new Membership(300, 0.3);
+
+        Posisi mickey = new Posisi("Kasir", "Magang", "1 tahun");
+        Posisi jackie = new Posisi("Admin", "Karyawan Tetap", null);
+        Posisi willie = new Posisi("Staff Toko", "Magang", "1.5 tahun");
     }
+
 }
