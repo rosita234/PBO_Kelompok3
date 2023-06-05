@@ -1,5 +1,8 @@
 /*
- * 22SI2 Louin Liman 03081220043
+ * 22SI2 
+ * Louin Liman 
+ * 03081220043
+ * sirlinjj@gmail.com
  * 
  * Class ini berfungsi untuk membedakan status staff antara admin atau kasir
  */
