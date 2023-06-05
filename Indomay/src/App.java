@@ -17,6 +17,7 @@ public class App {
                 case "3":
                 case "4":
                 case "5":
+                    choice = false;
                 default:
                     break;
             }
@@ -31,5 +32,11 @@ public class App {
         System.out.println("3. Cek Data Pembeli");
         System.out.println("4. History Transaksi");
         System.out.println("5. Exit");
+    }
+
+    public static void init(){
+        Stok sabun = new Stok("S01", "Sabun Mandi", 10, 20000);
+        Stok odol = new Stok("S02", "Pasta Gigi", 12, 15000);
+        Stok shampoo = new Stok("S03","Shampoo",10,50000);
     }
 }

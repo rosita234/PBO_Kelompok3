@@ -53,4 +53,9 @@ public class Stok {
     public void setNamaStok(String namaStok) {
         this.namaStok = namaStok;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s %s %d Rp. %d", kodeStok,namaStok, jumlahStok, hargaStok);
+    }
 }
