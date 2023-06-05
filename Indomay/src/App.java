@@ -35,9 +35,14 @@ public class App {
         System.out.println("5. Exit");
     }
 
-    public static void init(){
+    public static void init() {
         Stok sabun = new Stok("S01", "Sabun Mandi", 10, 20000);
         Stok odol = new Stok("S02", "Pasta Gigi", 12, 15000);
         Stok shampoo = new Stok("S03","Shampoo",10,50000);
+
+        Posisi mickey = new Posisi("Kasir", "Magang", "1 tahun");
+        Posisi jackie = new Posisi("Admin", "Karyawan Tetap", null);
+        Posisi willie = new Posisi("Staff Toko", "Magang", "1.5 tahun");
     }
+
 }
