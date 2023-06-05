@@ -51,9 +51,15 @@ public class App {
         Posisi jackie = new Posisi("Admin", "Karyawan Tetap", null);
         Posisi willie = new Posisi("Staff Toko", "Magang", "1.5 tahun");
 
+        Pembeli satu = new Pembeli("albert", "0816785908", "ya");
+        Pembeli dua = new Pembeli("mark", "0812876457", "ya");
+        Pembeli tiga = new Pembeli("john", "08135896470", "tidak");
+        
+
         Staff user1 = new Staff("Alfredo","pertemuan4");
     }
 
 
 
 }
+
