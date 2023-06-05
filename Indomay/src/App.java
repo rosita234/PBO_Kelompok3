@@ -3,7 +3,8 @@ import java.util.Scanner;
 public class App {
     public static void main(String[] args) throws Exception{
         init();
-
+        Stok sabun = new Stok("S01", "Sabun Mandi", 10, 20000);
+        System.out.println(sabun);
         boolean choice = true;
         Scanner sc = new Scanner(System.in);
 

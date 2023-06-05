@@ -15,6 +15,8 @@ public class Stok {
     private int jumlahStok;
     private int hargaStok;
 
+    public Stok(){}
+
     public Stok(String kodeStok, String namaStok, int jumlahStok, int hargaStok){
         this.kodeStok = kodeStok;
         this.namaStok = namaStok;
@@ -56,6 +58,10 @@ public class Stok {
 
     @Override
     public String toString() {
-        return String.format("%s %s %d Rp. %d", kodeStok,namaStok, jumlahStok, hargaStok);
+        return String.format("Kode Stok : %s \nNama Stok : %s \nJumlah    : %d \nHarga     : Rp. %d", 
+        kodeStok,
+        namaStok, 
+        jumlahStok, 
+        hargaStok);
     }
 }
