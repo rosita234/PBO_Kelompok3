@@ -54,8 +54,8 @@ public class App {
         Pembeli satu = new Pembeli("albert", "08167859078", "ya");
         Pembeli dua = new Pembeli("mark", "081287645797", "ya");
         Pembeli tiga = new Pembeli("john", "08135896470", "tidak");
-        
 
+        
         Staff user1 = new Staff("Alfredo","pertemuan4");
     }
 
