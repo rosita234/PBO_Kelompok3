@@ -1,3 +1,7 @@
+//fitur ini berfungsi untuk menyimpan identitas pembelian dan status membership
+//By : Edbert Muis (03081220022)
+//email : 03081220022@student.uph.edu
+
 public class Pembeli {
 
     public String nama;
