@@ -10,11 +10,31 @@
 public class Posisi {
 
     private String status;
-    
-    public Posisi() {
-        
+    private String employment;
+    private String contract;
+
+    public Posisi(String status, String employment, String contract) {
+        this.status = status;
+        this.employment = employment;
+        this.contract = contract;
     }
-    
+
+    public String getEmployment() {
+        return this.employment;
+    }
+
+    public void setEmployment(String employment) {
+        this.employment = employment;
+    }
+
+    public String getContract() {
+        return this.contract;
+    }
+
+    public void setContract(String contract) {
+        this.contract = contract;
+    }
+
     public String getStatus() {
         return this.status;
     }
@@ -23,5 +43,13 @@ public class Posisi {
         this.status = status;
     }
 
+    @Override
+    public String toString() {
+        return "{" +
+            " status='" + getStatus() + "'" +
+            ", employment='" + getEmployment() + "'" +
+            ", contract='" + getContract() + "'" +
+            "}";
+    }
+    
 }
-
