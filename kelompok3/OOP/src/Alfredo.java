@@ -4,29 +4,31 @@ public class Alfredo {
     }
 }
 /*
+Kontruksi
 public class StaffNode {
-    private Staff user;
-    private StaffNode next;
+    private String name;
+    private String password;
 
-    public StaffNode(Staff user) {
-        this.user = user;
-        this.next = null;
+    public StaffNode(String name, String password){
+        super();
+        this.name = name;
+        this.password = password;
     }
-    //Operasi memanggil Staff
-    public Staff getStaff() {
-        return user;
+    public String getName(){
+        return name;
     }
-    //Operasi memanggil Node berikutnya
-    public StaffNode getNext() {
-        return next;
+    public String getPassword() {
+        return password;
     }
-    //Operasi menggubah Staff
-    public void setUser(Staff user) {
-        this.user = user;
+    public void setName(String a){
+        this.name = a;
     }
-    //Operasi menggubah Node berikutnya
-    public void setNext(StaffNode next) {
-        this.next = next;
+    public void setPassword(String b){
+        this.password = b;
+    }
+
+    public String toString(){
+        return "Staff [Name = " + name + ", Password = " + password + "]";
     }
 }
  */
@@ -40,3 +42,4 @@ Class Staff
  * Lihat Hsitory Penjualan
  * Log out
  */
+
