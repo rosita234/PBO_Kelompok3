@@ -13,6 +13,10 @@ public class Posisi {
     private String employment;
     private String contract;
 
+
+    public Posisi() {
+    }
+
     public Posisi(String status, String employment, String contract) {
         this.status = status;
         this.employment = employment;
