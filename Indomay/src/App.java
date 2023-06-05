@@ -38,5 +38,9 @@ public class App {
         Stok sabun = new Stok("S01", "Sabun Mandi", 10, 20000);
         Stok odol = new Stok("S02", "Pasta Gigi", 12, 15000);
         Stok shampoo = new Stok("S03","Shampoo",10,50000);
+
+        Membership poin1 = new Membership(100, 0.1);
+        Membership poin2 = new Membership(200, 0.2);
+        Membership poin3 = new Membership(300, 0.3);
     }
 }
