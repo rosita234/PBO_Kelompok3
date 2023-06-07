@@ -24,12 +24,6 @@ HEAD
     public Posisi() {
     }
 
-    public Posisi(String status, String employment, String contract) {
-        this.status = status;
-        this.employment = employment;
-        this.contract = contract;
-    }
-
     public String getEmployment() {
         return this.employment;
     }

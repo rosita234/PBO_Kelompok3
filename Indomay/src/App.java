@@ -57,6 +57,8 @@ public class App {
         
         
         Staff user1 = new Staff("Alfredo","pertemuan4");
+        Staff user2 = new Staff("Louin","akulouin");
+        Staff user3 = new Staff("Edbert", "akuEdbert");
     }
 
 

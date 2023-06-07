@@ -25,7 +25,9 @@ public class Staff{
     public String toString(){
         return "Staff: [Name = " + name + ", Password = " + password + "]";
     }
+    /*
     //Constuctor Empty
     public void Staff() {
     }
+    */
 }
