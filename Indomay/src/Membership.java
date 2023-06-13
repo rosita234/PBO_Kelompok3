@@ -9,33 +9,23 @@ public class Membership {
      */
 
     private int poin;
-    private double promo;
 
     public Membership(){}
 
-    public Membership(int poin, double promo){
+    public Membership(int poin){
         this.poin = poin;
-        this.promo = promo;
     }
 
     public int getPoin() {
         return poin;
     }
 
-    public double getPromo() {
-        return promo;
-    }
-
     public void setPoin(int poin) {
         this.poin = poin;
     }
 
-    public void setPromo(double promo) {
-        this.promo = promo;
-    }
-
     @Override
     public String toString(){
-        return String.format("%d  %.2f", poin, promo); 
+        return String.format("%d", poin); 
     }
 }

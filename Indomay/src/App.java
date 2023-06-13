@@ -3,7 +3,6 @@ import java.util.Scanner;
 public class App {
 
     static Barang barang[] = new Barang[3];
-    static Membership membership[] = new Membership[3];
     static Staff staff[] = new Staff[3];
     static History history[] = new History[3];
     static Pembeli pembeli[] = new Pembeli[3];
@@ -27,27 +26,24 @@ public class App {
                     showBarang();
                     break;
                 case "3":
-                    showMembership();
-                    break;
-                case "4":
                     inputStaffDanPosisi();
                     break;
-                case "5":
+                case "4":
                     showStaffDanPosisi();
                     break;
+                case "5":
+                    inputPembeliDanPoin();
+                    break;
                 case "6":
-                    inputPembeli();
+                    showPembeliDanPoin();
                     break;
                 case "7":
-                    showPembeli();
-                    break;
-                case "8":
                     inputHistory();
                     break;
-                case "9":
+                case "8":
                     showHistory();
                     break;
-                case "10":
+                case "9":
                     System.out.println("<<System>> Bye");
                     choice = false;
                     break;
@@ -63,16 +59,15 @@ public class App {
         System.out.println();
         System.out.println("                   Menu                   ");
         System.out.println("==========================================");
-        System.out.println("1.  Input Barang");
-        System.out.println("2.  Show Barang");
-        System.out.println("3.  Show Poin untuk Dapat Promo");
-        System.out.println("4.  Input Staff & Posisinya");
-        System.out.println("5.  Show Staff & Posisinya");
-        System.out.println("6.  Input Pembeli");
-        System.out.println("7.  Show Pembeli");
-        System.out.println("8.  Input history transaksi");
-        System.out.println("9.  Show history transaksi");
-        System.out.println("10. Exit");
+        System.out.println("1. Input Barang");
+        System.out.println("2. Show Barang");
+        System.out.println("3. Input Staff & Posisinya");
+        System.out.println("4. Show Staff & Posisinya");
+        System.out.println("5. Input Pembeli & Poin Membership");
+        System.out.println("6. Show Pembeli & Poin yang Dimiliki");
+        System.out.println("7. Input history transaksi");
+        System.out.println("8. Show history transaksi");
+        System.out.println("9. Exit");
         System.out.println("==========================================");
     }
 
@@ -114,16 +109,6 @@ public class App {
         for(int i = 0; i < barang.length; i++){
             if(barang[i] != null){
                 System.out.println(barang[i]);
-            }
-        }
-    }
-
-    public static void showMembership(){
-        System.out.println("Poin Promo");
-        System.out.println("==========");
-        for(int i = 0; i < membership.length; i++){
-            if(membership[i] != null){
-                System.out.println(membership[i]);
             }
         }
     }
@@ -170,12 +155,12 @@ public class App {
         System.out.println("================================================================================");
         for(int i = 0; i < staff.length; i++){
             if(staff[i] != null){
-                System.out.print(staff[i]);
+                System.out.println(staff[i]);
             }
         }
     }
 
-    public static void inputPembeli(){
+    public static void inputPembeliDanPoin(){
         System.out.println("==========================================");
         System.out.print("Nama Pembeli : ");
         String nama = sc.nextLine();
@@ -186,7 +171,8 @@ public class App {
         System.out.println("==========================================");
         System.out.println();
 
-        Pembeli pembeliBaru = new Pembeli(nama, telp,poin);
+        Membership membership = new Membership(poin);
+        Pembeli pembeliBaru = new Pembeli(nama, telp, membership);
 
         for (int i = 0; i < pembeli.length; i++) {
             if (pembeli[i] == null) {
@@ -205,7 +191,7 @@ public class App {
         sc.nextLine();
     }
 
-    public static void showPembeli(){
+    public static void showPembeliDanPoin(){
         System.out.println("Nama                 No. Telp     Poin");
         System.out.println("=========================================");
 
@@ -261,17 +247,17 @@ public class App {
         barang[1] = new Barang("S02", "Pasta Gigi", 12, 15000);
         barang[2] = new Barang("S03","Shampoo",10,50000);
         
-        membership[0] = new Membership(100, 0.1);        
-        membership[1] = new Membership(200, 0.2);
-        membership[2] = new Membership(300, 0.3); 
+        Membership membership1 = new Membership(100);        
+        Membership membership2 = new Membership(200);
+        Membership membership3 = new Membership(300); 
 
         Posisi posisi1 = new Posisi("Kasir", "Magang", "1 tahun");
         Posisi posisi2 = new Posisi("Admin", "Karyawan Tetap", null);
         Posisi posisi3  = new Posisi("Staff Toko", "Magang", "1.5 tahun");
 
-        pembeli[0] = new Pembeli("albert", "08167859078",250);
-        pembeli[1] = new Pembeli("mark", "081287645797",300);
-        pembeli[2] = new Pembeli("john", "08135896470",1000 );
+        pembeli[0] = new Pembeli("albert", "08167859078",membership1);
+        pembeli[1] = new Pembeli("mark", "081287645797",membership2);
+        pembeli[2] = new Pembeli("john", "08135896470",membership3 );
 
         staff[0] = new Staff("Alfredo","pertemuan4",posisi1);
         staff[1] = new Staff("Louin","akulouin",posisi2);

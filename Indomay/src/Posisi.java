@@ -48,7 +48,7 @@ public class Posisi {
 
     @Override
     public String toString() {
-        return String.format("%-10s %-20s %-20s\n", 
+        return String.format("%-10s %-20s %-20s", 
         status,
         employment,
         contract) ;

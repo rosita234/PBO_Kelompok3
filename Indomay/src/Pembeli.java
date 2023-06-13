@@ -6,15 +6,15 @@ public class Pembeli {
 
     public String nama;
     public String noTelp;
-    private int poin;
+    private Membership membership;
 
     public Pembeli() {
     }
 
-    public Pembeli(String nama, String noTelp, int poin) {
+    public Pembeli(String nama, String noTelp, Membership membership) {
         this.nama = nama;
         this.noTelp = noTelp;
-        this.poin = poin;
+        this.membership = membership;
     }
 
     public String getNama() {
@@ -33,21 +33,20 @@ public class Pembeli {
         this.noTelp = noTelp;
     }
 
-    public int getPoin() {
-        return poin;
+    public Membership getMembership() {
+        return membership;
     }
 
-    public void setPoin(int poin) {
-        this.poin = poin;
+    public void setMembership(Membership membership) {
+        this.membership = membership;
     }
-
     
     @Override
     public String toString() {
-        return String.format("%-20s %-12s %d", 
+        return String.format("%-20s %-12s %s", 
         nama,
         noTelp,
-        poin) ;
+        membership.toString()) ;
     }
 
 }
