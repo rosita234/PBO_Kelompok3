@@ -32,7 +32,7 @@ public class App {
                     showStaffDanPosisi();
                     break;
                 case "5":
-                    inputPembeliDanPoin();
+                    inputPembeli();
                     break;
                 case "6":
                     showPembeliDanPoin();
@@ -63,7 +63,7 @@ public class App {
         System.out.println("2. Show Barang");
         System.out.println("3. Input Staff & Posisinya");
         System.out.println("4. Show Staff & Posisinya");
-        System.out.println("5. Input Pembeli & Poin Membership");
+        System.out.println("5. Input Pembeli");
         System.out.println("6. Show Pembeli & Poin yang Dimiliki");
         System.out.println("7. Input history transaksi");
         System.out.println("8. Show history transaksi");
@@ -160,19 +160,16 @@ public class App {
         }
     }
 
-    public static void inputPembeliDanPoin(){
+    public static void inputPembeli(){
         System.out.println("==========================================");
         System.out.print("Nama Pembeli : ");
         String nama = sc.nextLine();
         System.out.print("No Telp      : ");
         String telp = sc.nextLine();
-        System.out.print("Poin         : ");
-        int poin = sc.nextInt();
         System.out.println("==========================================");
         System.out.println();
 
-        Membership membership = new Membership(poin);
-        Pembeli pembeliBaru = new Pembeli(nama, telp, membership);
+        Pembeli pembeliBaru = new Pembeli(nama, telp);
 
         for (int i = 0; i < pembeli.length; i++) {
             if (pembeli[i] == null) {
@@ -188,7 +185,6 @@ public class App {
                 pembeli = tempatBaru;
             }
         }
-        sc.nextLine();
     }
 
     public static void showPembeliDanPoin(){
@@ -246,18 +242,21 @@ public class App {
         barang[0] = new Barang("S01", "Sabun Mandi", 10, 20000);
         barang[1] = new Barang("S02", "Pasta Gigi", 12, 15000);
         barang[2] = new Barang("S03","Shampoo",10,50000);
-        
-        Membership membership1 = new Membership(100);        
-        Membership membership2 = new Membership(200);
-        Membership membership3 = new Membership(300); 
 
         Posisi posisi1 = new Posisi("Kasir", "Magang", "1 tahun");
         Posisi posisi2 = new Posisi("Admin", "Karyawan Tetap", null);
         Posisi posisi3  = new Posisi("Staff Toko", "Magang", "1.5 tahun");
 
-        pembeli[0] = new Pembeli("albert", "08167859078",membership1);
-        pembeli[1] = new Pembeli("mark", "081287645797",membership2);
-        pembeli[2] = new Pembeli("john", "08135896470",membership3 );
+        Membership membership1 = new Membership(100);        
+        Membership membership2 = new Membership(200);
+        Membership membership3 = new Membership(300); 
+
+        pembeli[0] = new Pembeli("albert", "08167859078");
+        pembeli[0].setMembership(membership1);
+        pembeli[1] = new Pembeli("mark", "081287645797");
+        pembeli[1].setMembership(membership2);
+        pembeli[2] = new Pembeli("john", "08135896470");
+        pembeli[2].setMembership(membership3);
 
         staff[0] = new Staff("Alfredo","pertemuan4",posisi1);
         staff[1] = new Staff("Louin","akulouin",posisi2);

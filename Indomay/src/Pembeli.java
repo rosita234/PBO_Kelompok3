@@ -9,12 +9,13 @@ public class Pembeli {
     private Membership membership;
 
     public Pembeli() {
+        membership = new Membership(0);
     }
 
-    public Pembeli(String nama, String noTelp, Membership membership) {
+    public Pembeli(String nama, String noTelp) {
         this.nama = nama;
         this.noTelp = noTelp;
-        this.membership = membership;
+        membership = new Membership(0);
     }
 
     public String getNama() {
