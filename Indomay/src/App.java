@@ -130,7 +130,7 @@ public class App {
         System.out.println();
 
         Posisi posisiBaru = new Posisi(status,employment,kontrak);
-        Staff staffBaru = new Staff(namaStaff, password,posisiBaru);
+        Staff staffBaru = new Staff(namaStaff,password,posisiBaru);
 
         for (int i = 0; i < staff.length; i++) {
             if (staff[i] == null) {
