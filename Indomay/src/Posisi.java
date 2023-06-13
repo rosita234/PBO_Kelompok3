@@ -48,11 +48,10 @@ public class Posisi {
 
     @Override
     public String toString() {
-        return "{" +
-            " status='" + getStatus() + "'" +
-            ", employment='" + getEmployment() + "'" +
-            ", contract='" + getContract() + "'" +
-            "}";
+        return String.format("%-10s %-20s %-20s\n", 
+        status,
+        employment,
+        contract) ;
     }
     
 }

@@ -54,6 +54,6 @@ public class History {
 
     @Override
     public String toString(){
-        return String.format("Tanggal: %s Jenis Transaksi %s Keterangan %s", tanggal, jenis_transaksi, keterangan);
+        return String.format("%-15s %-10s %s", tanggal, jenis_transaksi, keterangan);
     }
 }
