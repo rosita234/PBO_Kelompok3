@@ -4,10 +4,14 @@ public class Staff{
     private String password;
     private Posisi posisi;
 
-    public Staff(String name, String password, Posisi posisi){
+    public Staff() {
+        posisi = new Posisi();
+    }
+
+    public Staff(String name, String password){
         this.name = name;
         this.password = password;
-        this.posisi = posisi;
+        posisi = new Posisi();;
     }
     //Constructor all Fields
     public String getName(){
@@ -39,9 +43,5 @@ public class Staff{
         password, 
         posisi.toString());
     }
-    /*
-    //Constuctor Empty
-    public void Staff() {
-    }
-    */
+    
 }

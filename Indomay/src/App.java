@@ -35,15 +35,18 @@ public class App {
                     inputPembeli();
                     break;
                 case "6":
-                    showPembeliDanPoin();
+                    tambahPoin();
                     break;
                 case "7":
-                    inputHistory();
+                    showPembeliDanPoin();
                     break;
                 case "8":
-                    showHistory();
+                    inputHistory();
                     break;
                 case "9":
+                    showHistory();
+                    break;
+                case "10":
                     System.out.println("<<System>> Bye");
                     choice = false;
                     break;
@@ -59,15 +62,16 @@ public class App {
         System.out.println();
         System.out.println("                   Menu                   ");
         System.out.println("==========================================");
-        System.out.println("1. Input Barang");
-        System.out.println("2. Show Barang");
-        System.out.println("3. Input Staff & Posisinya");
-        System.out.println("4. Show Staff & Posisinya");
-        System.out.println("5. Input Pembeli");
-        System.out.println("6. Show Pembeli & Poin yang Dimiliki");
-        System.out.println("7. Input history transaksi");
-        System.out.println("8. Show history transaksi");
-        System.out.println("9. Exit");
+        System.out.println("1.  Input Barang");
+        System.out.println("2.  Show Barang");
+        System.out.println("3.  Input Staff & Posisinya");
+        System.out.println("4.  Show Staff & Posisinya");
+        System.out.println("5.  Input Pembeli");
+        System.out.println("6.  Tambah Poin");
+        System.out.println("7.  Show Pembeli & Poin yang Dimiliki");
+        System.out.println("8.  Input history transaksi");
+        System.out.println("9.  Show history transaksi");
+        System.out.println("10. Exit");
         System.out.println("==========================================");
     }
 
@@ -129,8 +133,9 @@ public class App {
         System.out.println("==========================================");
         System.out.println();
 
+        Staff staffBaru = new Staff(namaStaff, password);
         Posisi posisiBaru = new Posisi(status,employment,kontrak);
-        Staff staffBaru = new Staff(namaStaff, password,posisiBaru);
+        staffBaru.setPosisi(posisiBaru);
 
         for (int i = 0; i < staff.length; i++) {
             if (staff[i] == null) {
@@ -170,7 +175,7 @@ public class App {
         System.out.println();
 
         Pembeli pembeliBaru = new Pembeli(nama, telp);
-
+        
         for (int i = 0; i < pembeli.length; i++) {
             if (pembeli[i] == null) {
                 pembeli[i] = pembeliBaru;
@@ -185,6 +190,32 @@ public class App {
                 pembeli = tempatBaru;
             }
         }
+    }
+
+    public static void tambahPoin(){
+        System.out.println("Penambahan Poin");
+        System.out.println("==========================================");
+        System.out.print("No. Telp : ");
+        String noTelp =  sc.nextLine();
+        System.out.println("==========================================");
+
+        boolean nomorTerdaftar = false;
+        for(int i = 0; i < pembeli.length; i++){
+            if(pembeli[i] != null && pembeli[i].getNoTelp().equals(noTelp)){
+                System.out.print("Masukkan Poin : ");
+                int poin = sc.nextInt();
+                pembeli[i].getMembership().setPoin(pembeli[i].getMembership().getPoin() + poin);
+                System.out.println("==========================================");
+                System.out.println("<<System>> Poin Berhasil ditambahkan");
+                nomorTerdaftar = true;
+                sc.nextLine();
+                break;
+            }
+        }
+        if(nomorTerdaftar == false){
+            System.out.println("Nomor yang Dimasukkan Belum Terdaftar");
+        }
+        System.out.println();
     }
 
     public static void showPembeliDanPoin(){
@@ -243,10 +274,6 @@ public class App {
         barang[1] = new Barang("S02", "Pasta Gigi", 12, 15000);
         barang[2] = new Barang("S03","Shampoo",10,50000);
 
-        Posisi posisi1 = new Posisi("Kasir", "Magang", "1 tahun");
-        Posisi posisi2 = new Posisi("Admin", "Karyawan Tetap", null);
-        Posisi posisi3  = new Posisi("Staff Toko", "Magang", "1.5 tahun");
-
         Membership membership1 = new Membership(100);        
         Membership membership2 = new Membership(200);
         Membership membership3 = new Membership(300); 
@@ -258,8 +285,15 @@ public class App {
         pembeli[2] = new Pembeli("john", "08135896470");
         pembeli[2].setMembership(membership3);
 
-        staff[0] = new Staff("Alfredo","pertemuan4",posisi1);
-        staff[1] = new Staff("Louin","akulouin",posisi2);
-        staff[2] = new Staff("Edbert", "akuEdbert",posisi3);
+        Posisi posisi1 = new Posisi("Kasir", "Magang", "1 tahun");
+        Posisi posisi2 = new Posisi("Admin", "Karyawan Tetap", null);
+        Posisi posisi3  = new Posisi("Staff Toko", "Magang", "1.5 tahun");
+
+        staff[0] = new Staff("Alfredo","pertemuan4");
+        staff[0].setPosisi(posisi1);
+        staff[1] = new Staff("Louin","akulouin");
+        staff[1].setPosisi(posisi2);
+        staff[2] = new Staff("Edbert", "akuEdbert");
+        staff[2].setPosisi(posisi3);
     }
 }
