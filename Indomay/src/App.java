@@ -135,6 +135,7 @@ public class App {
 
         Staff staffBaru = new Staff(namaStaff, password);
         Posisi posisiBaru = new Posisi(status,employment,kontrak);
+
         staffBaru.setPosisi(posisiBaru);
 
         for (int i = 0; i < staff.length; i++) {
