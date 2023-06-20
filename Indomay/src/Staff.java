@@ -1,47 +1,72 @@
 public class Staff{
     
+    private String id;
     private String name;
-    private String password;
-    private Posisi posisi;
+    private String posisi;
+    private int gaji;
+    private UserLogin userLogin;
 
     public Staff() {
-        posisi = new Posisi();
+        userLogin = new UserLogin();
     }
 
-    public Staff(String name, String password){
+    public Staff(String id, String name, String posisi, int gaji){
+        this.id = id;
         this.name = name;
-        this.password = password;
-        posisi = new Posisi();;
+        this.posisi = posisi;
+        this.gaji = gaji;
+        this.userLogin = new UserLogin();
     }
     //Constructor all Fields
     public String getName(){
         return name;
     }
-    public String getPassword() {
-        return password;
+
+    public int getGaji() {
+        return gaji;
+    }
+
+    public String getId() {
+        return id;
     }
     
-    public Posisi getPosisi() {
+    public String getPosisi() {
         return posisi;
+    }
+
+    public UserLogin getUserLogin() {
+        return userLogin;
     }
 
     public void setName(String a){
         this.name = a;
     }
-    public void setPassword(String b){
-        this.password = b;
+
+    public void setGaji(int gaji) {
+        this.gaji = gaji;
     }
 
-    public void setPosisi(Posisi posisi) {
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setPosisi(String posisi) {
         this.posisi = posisi;
+    }
+
+    public void setUserLogin(UserLogin userLogin) {
+        this.userLogin = userLogin;
     }
 
     //Constructor toString
     public String toString(){
-        return String.format("%-20s %-10s %s", 
+        return String.format("%-4s %-20s %-10s %-20d %s", 
+        id,
         name,
-        password, 
-        posisi.toString());
+        posisi,
+        gaji,
+        userLogin.toString()
+        );
     }
     
 }
