@@ -1,3 +1,5 @@
+//function saja, tidak perlu ada Override
+
 public class AksesMenu {
     private HakAkses hakAkses;
 
