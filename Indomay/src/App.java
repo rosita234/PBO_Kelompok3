@@ -54,7 +54,7 @@ public class App {
                                         listBarang();
                                         break;
                                     case "3":
-                                        daftarMembership();
+                                        daftarMembership(); //tambah Pembeli
                                         break;
                                     case "4":
                                         cekPoinPembeli();
@@ -248,8 +248,14 @@ public class App {
         System.out.println(listBarang);
     }
 
-    public static void daftarMembership(){
-
+    public static void daftarMembership(){ //Tambah Pembeli
+        System.out.print("Nama     : ");
+        String nama = sc.nextLine();
+        System.out.print("No. Telp : ");
+        String noTelp = sc.nextLine();
+        Pembeli pembeliBaru = new Pembeli(nama, noTelp);
+        listPembeli.add(pembeliBaru);
+        System.out.println();
     }
 
     public static void listPembeli(){
@@ -273,7 +279,17 @@ public class App {
     }
 
     public static void tambahBarang(){
-
+        System.out.print("Kode   : ");
+        String kode = sc.nextLine();
+        System.out.print("Nama   : ");
+        String nama = sc.nextLine();
+        System.out.print("Jumlah : ");
+        int jumlah = sc.nextInt();
+        System.out.print("Harga  : ");
+        int harga = sc.nextInt();
+        Barang barang = new Barang(kode, nama, jumlah, harga);
+        listBarang.add(staff.getId(),listStaff,barang);
+        System.out.println();
     }
 
     public static void hapusBarang(){
@@ -289,7 +305,26 @@ public class App {
     }
 
     public static void tambahStaff(){
-
+        System.out.print("ID       : ");
+        String id = sc.nextLine();
+        System.out.print("Nama     : ");
+        String nama = sc.nextLine();
+        System.out.print("Posisi   : ");
+        String posisi = sc.nextLine();
+        System.out.print("Gaji     : ");
+        int gaji = sc.nextInt();
+        System.out.print("Username : ");
+        String username = sc.nextLine();
+        System.out.print("Password : ");
+        String password = sc.nextLine();
+        System.out.print("Role     : ");
+        String role = sc.nextLine();
+        Staff staff = new Staff(id, nama, posisi, gaji);
+        staff.getUserLogin().setUsername(username);
+        staff.getUserLogin().setPassword(password);
+        staff.getUserLogin().getHakAkses().setRole(role);
+        listStaff.add(staff);
+        System.out.println();
     }
 
     public static void updateStaff(){
@@ -334,9 +369,9 @@ public class App {
                     String baris = scanFile.nextLine();
                     String[] nilai = baris.split(";");
                     if (!baris.equals("NOMOR;NAMA;POIN")) {
-                        Pembeli pembeli = new Pembeli(nilai[0], nilai[1]);
-                        pembeli.getMembership().setPoin(Double.parseDouble(nilai[2]));
-                        listPembeli.add(pembeli);
+                        Pembeli pembeliBaru = new Pembeli(nilai[0], nilai[1]);
+                        pembeliBaru.getMembership().setPoin(Double.parseDouble(nilai[2]));
+                        listPembeli.add(pembeliBaru);
                     }
                 }
                 scanFile.close();
