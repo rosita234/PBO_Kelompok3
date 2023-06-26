@@ -58,7 +58,7 @@ public class Barang {
 
     @Override
     public String toString() {
-        return String.format("%-4s %-20s %-4d Rp. %d", 
+        return String.format("%-4s %-20s %-4d   Rp. %d", 
         kodeBarang,
         namaBarang, 
         jumlahBarang, 

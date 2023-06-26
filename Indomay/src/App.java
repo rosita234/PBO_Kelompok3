@@ -1,15 +1,21 @@
+import java.io.IOException;
+import java.io.File;
 import java.util.Scanner;
 
 public class App {
-
-    static Barang barang[] = new Barang[3];
-    static Staff staff[] = new Staff[3];
-    static History history[] = new History[3];
-    static Pembeli pembeli[] = new Pembeli[3];
+    static ListBarang listBarang = new ListBarang();
+    static ListPembeli listPembeli = new ListPembeli();
+    static ListStaff listStaff = new ListStaff();
+    static AksesMenu aksesMenu = new AksesMenu();
+    static Staff staff;
+    static Pembeli pembeli;
+    static ListTransaksi listTransaksi  = new ListTransaksi();
     static Scanner sc = new Scanner(System.in);
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws InterruptedException, IOException{
+        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
         init();
+
         boolean choice = true;
         
         do{
@@ -20,33 +26,140 @@ public class App {
             
             switch(pilihan){
                 case "1":
-                    inputBarang();
+                    System.out.print("Username : ");
+                    String username = sc.nextLine();
+                    System.out.print("Password : ");
+                    String password = sc.nextLine();
+                    System.out.println();
+
+                    if(listStaff.login(username, password)){
+                        staff = listStaff.getStaff();
+                        String namaStaff = staff.getName();
+                        HakAkses hakAkses = staff.getUserLogin().getHakAkses();
+                        System.out.println("<<System>> Hello, "+ namaStaff);
+                        boolean menu = true;
+
+                        do{
+                            aksesMenu.menuAkses(hakAkses);
+                            System.out.print("Masukkan pilihan : ");
+                            String opsi = sc.nextLine();
+                            if (aksesMenu.getIdMenu().equals("Menu Staff")){
+                                switch(opsi){
+                                    case "1":
+                                        listBarang();
+                                        System.out.println();
+                                        transaksi();
+                                        break;
+                                    case "2":
+                                        listBarang();
+                                        break;
+                                    case "3":
+                                        daftarMembership();
+                                        break;
+                                    case "4":
+                                        cekPoinPembeli();
+                                        break;
+                                    case "5":
+                                        listPembeli();
+                                        break;
+                                    case "6":
+                                        cekHistoryTransaksi();
+                                        break;
+                                    case "7":
+                                        System.out.println("<<System>> Bye");
+                                        staff = null;
+                                        menu = false;
+                                        break;
+                                    default:
+                                        System.out.println("<<System>> Harap Memilih Opsi yang Tersedia");
+                                        break;
+                                }   
+                            }
+                            if (aksesMenu.getIdMenu().equals("Menu Admin")){
+                                switch(opsi){
+                                case "1":
+                                    tambahBarang();
+                                    break;
+                                case "2":
+                                    hapusBarang();
+                                    break;
+                                case "3":
+                                    editBarang();
+                                    break;
+                                case "4":
+                                    listBarang();
+                                    break;
+                                case "5":
+                                    listStaff();
+                                    break;
+                                case "6":
+                                    listPembeli();
+                                    break;
+                                case "7":
+                                    cekHistoryTransaksi();
+                                    break;
+                                case "8":
+                                    cekHistoryBarang();
+                                    break;
+                                case "9":
+                                    System.out.println("<<System>> Bye");
+                                    staff = null;
+                                    menu = false;
+                                    break;
+                                default:
+                                    System.out.println("<<System>> Harap Memilih Opsi yang Tersedia");
+                                    break;
+                                }   
+                            }
+                            if (aksesMenu.getIdMenu().equals("Menu Supervisor")){
+                                switch(opsi){
+                                case "1":
+                                    tambahBarang();
+                                    break;
+                                case "2":
+                                    hapusBarang();
+                                    break;
+                                case "3":
+                                    editBarang();
+                                    break;
+                                case "4":
+                                    listBarang();
+                                    break;
+                                case "5":
+                                    listStaff();
+                                    break;
+                                case "6":
+                                    tambahStaff();
+                                    break;
+                                case "7":
+                                    updateStaff();
+                                    break;
+                                case "8":
+                                    listPembeli();
+                                    break;
+                                case "9":
+                                    cekHistoryTransaksi();
+                                    break;
+                                case "10":
+                                    cekHistoryBarang();
+                                    break;
+                                case "11":
+                                    System.out.println("<<System>> Bye");
+                                    staff = null;
+                                    menu = false;
+                                    break;
+                                default:
+                                    System.out.println("<<System>> Harap Memilih Opsi yang Tersedia");
+                                    break;
+                                }   
+                            }
+                        }while (menu);
+                    }
+                    else{
+                        System.out.println("<<System>> Username atau Password Invalid");
+                    }
                     break;
                 case "2":
-                    showBarang();
-                    break;
-                case "3":
-                    inputStaffDanPosisi();
-                    break;
-                case "4":
-                    showStaffDanPosisi();
-                    break;
-                case "5":
-                    inputPembeli();
-                    break;
-                case "6":
-                    tambahPoin();
-                    break;
-                case "7":
-                    showPembeliDanPoin();
-                    break;
-                case "8":
-                    inputHistory();
-                    break;
-                case "9":
-                    showHistory();
-                    break;
-                case "10":
                     System.out.println("<<System>> Bye");
                     choice = false;
                     break;
@@ -62,239 +175,174 @@ public class App {
         System.out.println();
         System.out.println("                   Menu                   ");
         System.out.println("==========================================");
-        System.out.println("1.  Input Barang");
-        System.out.println("2.  Show Barang");
-        System.out.println("3.  Input Staff & Posisinya");
-        System.out.println("4.  Show Staff & Posisinya");
-        System.out.println("5.  Input Pembeli");
-        System.out.println("6.  Tambah Poin");
-        System.out.println("7.  Show Pembeli & Poin yang Dimiliki");
-        System.out.println("8.  Input history transaksi");
-        System.out.println("9.  Show history transaksi");
-        System.out.println("10. Exit");
+        System.out.println("1.  Login");
+        System.out.println("2.  Exit");
         System.out.println("==========================================");
     }
 
-    public static void inputBarang(){
-        System.out.println("==========================================");
-        System.out.print("Kode Barang   : ");
-        String kodeStok = sc.nextLine();
-        System.out.print("Nama Barang   : ");
-        String namaStok = sc.nextLine();
-        System.out.print("Jumlah Barang : ");
-        int jumlahStok = sc.nextInt();
-        System.out.print("Harga Barang  : ");
-        int hargaStok = sc.nextInt();
-        System.out.println("==========================================");
-        System.out.println();
-
-        Barang newBarang = new Barang(kodeStok, namaStok, jumlahStok, hargaStok);
-
-        for (int i = 0; i < barang.length; i++) {
-            if (barang[i] == null) {
-                barang[i] = newBarang;
-                break;
-            }
-            else{
-                int sizeBaru = barang.length * 2;
-                Barang[] tempatBaru = new Barang[sizeBaru];
-                for (int j = 0; j < barang.length; j++) {
-                    tempatBaru[j] = barang[j];
+    public static void transaksi(){
+        Transaksi newTransaksi = new Transaksi(staff.getName());
+        System.out.print("Ada Membership (Ya/Tidak) : ");
+        String adaMember = sc.nextLine();
+        if (adaMember.equalsIgnoreCase("ya")){
+            System.out.println("=================================================");
+            System.out.print("No. Telp : ");
+            String noTelp = sc.nextLine();
+            System.out.println();
+            if(listPembeli.cekPembeli(noTelp)){
+                PembeliNode p = listPembeli.getHead();
+                while (p != null){
+                    if(noTelp.equalsIgnoreCase(p.getItem().getNoTelp())){
+                        pembeli = p.getItem(); //simpan data pembeli
+                    }
+                    p = p.getNext();
                 }
-                barang = tempatBaru;
             }
         }
-        sc.nextLine();
-    }
-
-    public static void showBarang(){
-        System.out.println("Kode Nama Barang          Qty  Harga");
-        System.out.println("==========================================");
-        for(int i = 0; i < barang.length; i++){
-            if(barang[i] != null){
-                System.out.println(barang[i]);
-            }
+        else{
+            pembeli = null;
         }
-    }
-
-    public static void inputStaffDanPosisi(){
-        System.out.println("==========================================");
-        System.out.print("Nama Staff           : ");
-        String namaStaff = sc.nextLine();
-        System.out.print("Password             : ");
-        String password = sc.nextLine();
-
-        System.out.print("Status (Kasir/Admin) : ");
-        String status = sc.nextLine();
-        System.out.print("Employment           : ");
-        String employment = sc.nextLine();
-        System.out.print("Masa Kontrak         : ");
-        String kontrak = sc.nextLine();
-        System.out.println("==========================================");
-        System.out.println();
-
-        Staff staffBaru = new Staff(namaStaff, password);
-        Posisi posisiBaru = new Posisi(status,employment,kontrak);
-
-        staffBaru.setPosisi(posisiBaru);
-
-        for (int i = 0; i < staff.length; i++) {
-            if (staff[i] == null) {
-                staff[i] = staffBaru;
-                break;
-            }
-            else{
-                int sizeBaru = staff.length * 2;
-
-                Staff[] tempatBaru = new Staff[sizeBaru];
-
-                for (int j = 0; j < staff.length; j++) {
-                    tempatBaru[j] = staff[j];
-                }
-                staff = tempatBaru;
-            }
-        }
-    }
-
-    public static void showStaffDanPosisi(){
-        System.out.println("Nama                 Password   Status     Employment           Kontrak");
-        System.out.println("================================================================================");
-        for(int i = 0; i < staff.length; i++){
-            if(staff[i] != null){
-                System.out.println(staff[i]);
-            }
-        }
-    }
-
-    public static void inputPembeli(){
-        System.out.println("==========================================");
-        System.out.print("Nama Pembeli : ");
-        String nama = sc.nextLine();
-        System.out.print("No Telp      : ");
-        String telp = sc.nextLine();
-        System.out.println("==========================================");
-        System.out.println();
-
-        Pembeli pembeliBaru = new Pembeli(nama, telp);
         
-        for (int i = 0; i < pembeli.length; i++) {
-            if (pembeli[i] == null) {
-                pembeli[i] = pembeliBaru;
+        listBarang(); //tampilkan list barang
+        String jb = "X";
+        //Scan Barang
+        System.out.println("Menu");
+        System.out.println("==========================================");
+        System.out.println("1. Scan Barang");
+        System.out.println("2. Hapus Barang di Transaski");
+        System.out.println("3. Tukar Poin");
+        System.out.println("4. Transaksi selesai");
+        System.out.println("==========================================");
+        System.out.print("Opsi : ");
+        String menuTransaksi = sc.nextLine();
+        switch(menuTransaksi){
+            case "1":
+                do{
+                    System.out.print("Kode Barang   : ");
+                    String kode = sc.nextLine();
+                    System.out.print("Jumlah Barang : ");
+                    String jumlah = sc.nextLine();
+                    System.out.println();
+                    newTransaksi.getListKetTransaksi().add(staff.getId(), listStaff, kode, Integer.parseInt(jumlah));
+                    System.out.println("==========================================");
+                    System.out.println("<< Tekan Enter untuk Lanjut Scan>>");
+                    System.out.println("<< Ketik X untuk Berhenti Scan>>");
+                    jb = sc.nextLine();
+                }while(!jb.equalsIgnoreCase("X"));
+            case "2":
+                System.out.println("Nama Barang : ");
+                String namaBarang = sc.nextLine();
+                newTransaksi.getListKetTransaksi().delete(staff.getId(), listStaff, namaBarang);
+            case "3":
+            case "4":
+            default:
+                System.out.println("<<System>> Harap Memilih Opsi yang Tersedia");
                 break;
-            }
-            else{
-                int sizeBaru = pembeli.length * 2;
-                Pembeli[] tempatBaru = new Pembeli[sizeBaru];
-                for (int j = 0; j < pembeli.length; j++) {
-                    tempatBaru[j] = pembeli[j];
+
+        }
+
+        listTransaksi.add(newTransaksi);
+    }
+
+    public static void listBarang(){
+        System.out.println(listBarang);
+    }
+
+    public static void daftarMembership(){
+
+    }
+
+    public static void listPembeli(){
+        System.out.println(listPembeli);
+    }
+
+    public static void cekPoinPembeli(){
+
+    }
+
+    public static void historyTransaksi(){
+        System.out.println(listTransaksi);
+    }
+
+    public static void cekHistoryTransaksi(){
+        
+    }
+
+    public static void cekHistoryBarang(){
+        System.out.println(listBarang.getHistoryBarang());
+    }
+
+    public static void tambahBarang(){
+
+    }
+
+    public static void hapusBarang(){
+        
+    }
+
+    public static void editBarang(){
+        
+    }
+
+    public static void listStaff(){
+        System.out.println(listStaff);
+    }
+
+    public static void tambahStaff(){
+
+    }
+
+    public static void updateStaff(){
+
+    }
+
+    public static void init(){
+        try{
+            File fileBarang = new File("ListBarang.csv");
+            File filePembeli = new File("ListPembeli.csv");
+            File fileStaff = new File("ListStaff.csv");
+            if(fileStaff.exists()){
+                Scanner scanFile = new Scanner(fileStaff);
+                while(scanFile.hasNextLine()){
+                    String baris = scanFile.nextLine();
+                    String[] nilai = baris.split(";");
+                    if (!baris.equals("ID;NAMA;POSISI;GAJI;USERNAME;PASSWORD;ROLE")) {
+                        Staff staff = new Staff(nilai[0], nilai[1],nilai[2], Integer.parseInt(nilai[3]));
+                        staff.getUserLogin().setUsername(nilai[4]);
+                        staff.getUserLogin().setPassword(nilai[5]);
+                        staff.getUserLogin().getHakAkses().setRole(nilai[6]);
+                        listStaff.add(staff);
+                    }
                 }
-                pembeli = tempatBaru;
-            }
-        }
-    }
-
-    public static void tambahPoin(){
-        System.out.println("Penambahan Poin");
-        System.out.println("==========================================");
-        System.out.print("No. Telp : ");
-        String noTelp =  sc.nextLine();
-        System.out.println("==========================================");
-
-        boolean nomorTerdaftar = false;
-        for(int i = 0; i < pembeli.length; i++){
-            if(pembeli[i] != null && pembeli[i].getNoTelp().equals(noTelp)){
-                System.out.print("Masukkan Poin : ");
-                int poin = sc.nextInt();
-                pembeli[i].getMembership().setPoin(pembeli[i].getMembership().getPoin() + poin);
-                System.out.println("==========================================");
-                System.out.println("<<System>> Poin Berhasil ditambahkan");
-                nomorTerdaftar = true;
-                sc.nextLine();
-                break;
-            }
-        }
-        if(nomorTerdaftar == false){
-            System.out.println("Nomor yang Dimasukkan Belum Terdaftar");
-        }
-        System.out.println();
-    }
-
-    public static void showPembeliDanPoin(){
-        System.out.println("Nama                 No. Telp     Poin");
-        System.out.println("=========================================");
-
-        for(int i = 0; i < pembeli.length; i++){
-            if(pembeli[i] != null){
-                System.out.println(pembeli[i]);
-            }
-        }
-    }
-
-    public static void inputHistory(){
-        System.out.println("==========================================");
-        System.out.print("Tanggal         : ");
-        String tanggal = sc.nextLine();
-        System.out.print("Keterangan      : ");
-        String ketrerangan = sc.nextLine();
-        System.out.print("Jenis Transaksi : ");
-        String jenis = sc.nextLine();
-        System.out.println("==========================================");
-        System.out.println();
-
-        History newHistory = new History(tanggal, ketrerangan, jenis);
-
-        for (int i = 0; i < history.length; i++) {
-            if (history[i] == null) {
-                history[i] = newHistory;
-                break;
-            }
-            else{
-                int sizeBaru = barang.length * 2;
-                History[] tempatBaru = new History[sizeBaru];
-                for (int j = 0; j < history.length; j++) {
-                    tempatBaru[j] = history[j];
+                scanFile.close();
+            } 
+            if(fileBarang.exists()){
+                Scanner scanFile = new Scanner(fileBarang);
+                while(scanFile.hasNextLine()){
+                    String baris = scanFile.nextLine();
+                    String[] nilai = baris.split(";");
+                    if (!baris.equals("KODE;NAMA;JUMLAH;HARGA")) {
+                        Barang barang = new Barang(nilai[0], nilai[1], Integer.parseInt(nilai[2]), Integer.parseInt(nilai[3]));
+                        listBarang.add("S001",listStaff,barang);
+                    }
                 }
-                history = tempatBaru;
+                scanFile.close();
             }
-        }
-
-    }
-
-    public static void showHistory(){
-        System.out.println("Tanggal         Operasi    Keterangan");
-        System.out.println("==========================================");
-        for(int i = 0; i < history.length; i++){
-            if(history[i] != null){
-                System.out.println(history[i]);
+            if(filePembeli.exists()){
+                Scanner scanFile = new Scanner(filePembeli);
+                while(scanFile.hasNextLine()){
+                    String baris = scanFile.nextLine();
+                    String[] nilai = baris.split(";");
+                    if (!baris.equals("NOMOR;NAMA;POIN")) {
+                        Pembeli pembeli = new Pembeli(nilai[0], nilai[1]);
+                        pembeli.getMembership().setPoin(Double.parseDouble(nilai[2]));
+                        listPembeli.add(pembeli);
+                    }
+                }
+                scanFile.close();
             }
+        }catch (Exception e){
+            System.out.println("Error : " + e.getMessage());
         }
-    }
-
-    public static void init() {
-        barang[0] = new Barang("S01", "Sabun Mandi", 10, 20000);
-        barang[1] = new Barang("S02", "Pasta Gigi", 12, 15000);
-        barang[2] = new Barang("S03","Shampoo",10,50000);
-
-        Membership membership1 = new Membership(100);        
-        Membership membership2 = new Membership(200);
-        Membership membership3 = new Membership(300); 
-
-        pembeli[0] = new Pembeli("albert", "08167859078");
-        pembeli[0].setMembership(membership1);
-        pembeli[1] = new Pembeli("mark", "081287645797");
-        pembeli[1].setMembership(membership2);
-        pembeli[2] = new Pembeli("john", "08135896470");
-        pembeli[2].setMembership(membership3);
-
-        Posisi posisi1 = new Posisi("Kasir", "Magang", "1 tahun");
-        Posisi posisi2 = new Posisi("Admin", "Karyawan Tetap", null);
-        Posisi posisi3  = new Posisi("Staff Toko", "Magang", "1.5 tahun");
-
-        staff[0] = new Staff("Alfredo","pertemuan4");
-        staff[0].setPosisi(posisi1);
-        staff[1] = new Staff("Louin","akulouin");
-        staff[1].setPosisi(posisi2);
-        staff[2] = new Staff("Edbert", "akuEdbert");
-        staff[2].setPosisi(posisi3);
     }
 }

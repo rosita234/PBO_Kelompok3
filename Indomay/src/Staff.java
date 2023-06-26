@@ -60,12 +60,12 @@ public class Staff{
 
     //Constructor toString
     public String toString(){
-        return String.format("%-4s %-20s %-10s %-20d %s", 
+        return String.format("%-4s %-20s %-10s Rp. %-20d %s", 
         id,
         name,
         posisi,
         gaji,
-        userLogin.toString()
+        userLogin
         );
     }
     

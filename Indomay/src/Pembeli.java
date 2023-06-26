@@ -47,7 +47,7 @@ public class Pembeli {
         return String.format("%-20s %-12s %s", 
         nama,
         noTelp,
-        membership.toString()) ;
+        membership) ;
     }
 
 }
