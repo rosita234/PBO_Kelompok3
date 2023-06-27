@@ -1,4 +1,4 @@
-public abstract class Staff{ //superclass
+public abstract class Staff implements MenuAkses{ //superclass //interface
     
     private String id;
     private String name;

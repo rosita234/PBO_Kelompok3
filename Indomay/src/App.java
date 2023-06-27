@@ -6,7 +6,6 @@ public class App {
     static ListBarang listBarang = new ListBarang();
     static ListPembeli listPembeli = new ListPembeli();
     static ListStaff listStaff = new ListStaff();
-    static AksesMenu aksesMenu = new AksesMenu();
     static Staff staff;
     static Pembeli pembeli;
     static ListTransaksi listTransaksi  = new ListTransaksi();
@@ -35,15 +34,15 @@ public class App {
                     if(listStaff.login(username, password)){
                         staff = listStaff.getStaff();
                         String namaStaff = staff.getName();
-                        HakAkses hakAkses = staff.getUserLogin().getHakAkses();
+                        String role = staff.getUserLogin().getHakAkses().getRole();
                         System.out.println("<<System>> Hello, "+ namaStaff);
                         boolean menu = true;
 
                         do{
-                            aksesMenu.menuAkses(hakAkses);
+                            staff.menu();
                             System.out.print("Masukkan pilihan : ");
                             String opsi = sc.nextLine();
-                            if (aksesMenu.getIdMenu().equals("Menu Staff")){
+                            if (role.equalsIgnoreCase("Kasir")){
                                 switch(opsi){
                                     case "1":
                                         listBarang();
@@ -75,7 +74,7 @@ public class App {
                                         break;
                                 }   
                             }
-                            if (aksesMenu.getIdMenu().equals("Menu Admin")){
+                            if (role.equalsIgnoreCase("Admin")){
                                 switch(opsi){
                                 case "1":
                                     tambahBarang();
@@ -111,7 +110,7 @@ public class App {
                                     break;
                                 }   
                             }
-                            if (aksesMenu.getIdMenu().equals("Menu Supervisor")){
+                            if (role.equalsIgnoreCase("Supervisor")){
                                 switch(opsi){
                                 case "1":
                                     tambahBarang();
