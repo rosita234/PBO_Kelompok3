@@ -313,17 +313,44 @@ public class App {
         String posisi = sc.nextLine();
         System.out.print("Gaji     : ");
         int gaji = sc.nextInt();
-        System.out.print("Username : ");
-        String username = sc.nextLine();
-        System.out.print("Password : ");
-        String password = sc.nextLine();
+        sc.nextLine();
+        System.out.println("Role -> Kasir/Admin/Supervisor/Tidak Ada");
         System.out.print("Role     : ");
         String role = sc.nextLine();
-        Staff staff = new Staff(id, nama, posisi, gaji);
-        staff.getUserLogin().setUsername(username);
-        staff.getUserLogin().setPassword(password);
-        staff.getUserLogin().getHakAkses().setRole(role);
-        listStaff.add(staff);
+
+        //harus terpisah satu-satu entah kenapa
+        if (role.equalsIgnoreCase("Kasir") || role.equalsIgnoreCase("Admin")||role.equalsIgnoreCase("Supervisor")){
+            //harus terpisah satu-satu entah kenapa
+            System.out.print("Username : ");
+            String username = sc.nextLine();
+            System.out.print("Password : ");
+            String password = sc.nextLine();
+            if (role.equalsIgnoreCase("Kasir")){
+                Staff staffBaru = new Kasir(id, nama, posisi, gaji);
+                staffBaru.getUserLogin().setUsername(username);
+                staffBaru.getUserLogin().setPassword(password);
+                staffBaru.getUserLogin().getHakAkses().setRole(role);
+                listStaff.add(staffBaru);
+            }
+            else if (role.equalsIgnoreCase("Admin")){
+                Staff staffBaru = new Admin(id, nama, posisi, gaji);
+                staffBaru.getUserLogin().setUsername(username);
+                staffBaru.getUserLogin().setPassword(password);
+                staffBaru.getUserLogin().getHakAkses().setRole(role);
+                listStaff.add(staffBaru);
+            }
+            else if (role.equalsIgnoreCase("Supervisor")){
+                Staff staffBaru = new Supervisor(id, nama, posisi, gaji);
+                staffBaru.getUserLogin().setUsername(username);
+                staffBaru.getUserLogin().setPassword(password);
+                staffBaru.getUserLogin().getHakAkses().setRole(null);
+                listStaff.add(staffBaru);
+            }
+        }
+        else{
+            Staff staffBaru = new StaffBiasa(id, nama, posisi, gaji);
+            listStaff.add(staffBaru);
+        }
         System.out.println();
     }
 
@@ -342,13 +369,33 @@ public class App {
                     String baris = scanFile.nextLine();
                     String[] nilai = baris.split(";");
                     if (!baris.equals("ID;NAMA;POSISI;GAJI;USERNAME;PASSWORD;ROLE")) {
-                        Staff staff = new Staff(nilai[0], nilai[1],nilai[2], Integer.parseInt(nilai[3]));
-                        staff.getUserLogin().setUsername(nilai[4]);
-                        staff.getUserLogin().setPassword(nilai[5]);
-                        staff.getUserLogin().getHakAkses().setRole(nilai[6]);
-                        listStaff.add(staff);
+                        if (nilai[6].equalsIgnoreCase("Kasir")){
+                            Staff staffBaru = new Kasir(nilai[0], nilai[1],nilai[2], Integer.parseInt(nilai[3]));
+                            staffBaru.getUserLogin().setUsername(nilai[4]);
+                            staffBaru.getUserLogin().setPassword(nilai[5]);
+                            staffBaru.getUserLogin().getHakAkses().setRole(nilai[6]);
+                            listStaff.add(staffBaru);
+                        }
+                        else if (nilai[6].equalsIgnoreCase("Admin")){
+                            Staff staffBaru = new Admin(nilai[0], nilai[1],nilai[2], Integer.parseInt(nilai[3]));
+                            staffBaru.getUserLogin().setUsername(nilai[4]);
+                            staffBaru.getUserLogin().setPassword(nilai[5]);
+                            staffBaru.getUserLogin().getHakAkses().setRole(nilai[6]);
+                            listStaff.add(staffBaru);
+                        }
+                        else if (nilai[6].equalsIgnoreCase("Supervisor")){
+                            Staff staffBaru = new Supervisor(nilai[0], nilai[1],nilai[2], Integer.parseInt(nilai[3]));
+                            staffBaru.getUserLogin().setUsername(nilai[4]);
+                            staffBaru.getUserLogin().setPassword(nilai[5]);
+                            staffBaru.getUserLogin().getHakAkses().setRole(nilai[6]);
+                            listStaff.add(staffBaru);
+                        }
+                        else{
+                            Staff staffBaru = new StaffBiasa(nilai[0], nilai[1],nilai[2], Integer.parseInt(nilai[3]));
+                            listStaff.add(staffBaru);
+                        }
                     }
-                }
+                }System.out.println(listStaff);
                 scanFile.close();
             } 
             if(fileBarang.exists()){

@@ -1,4 +1,4 @@
-public class ListStaff {
+public class ListStaff { 
     private StaffNode head;
     private StaffNode tail;
     private int count;
@@ -74,16 +74,20 @@ public class ListStaff {
     }
 
     public void add(String id, String nama, String posisi, int gaji){
-        Staff staffBaru = new Staff(id, nama, posisi, gaji);
-        StaffNode newNode = new StaffNode(staffBaru);
-        if(isEmpty()){
-            head = tail = newNode;
+        if (posisi.equalsIgnoreCase("Kasir")){
+            Staff staffBaru = new Kasir(id, nama, posisi, gaji);
+            add(staffBaru);
         }
-        else{
-            tail.setNext(newNode);
-            tail = newNode;
+
+        if (posisi.equalsIgnoreCase("Kasir")){
+            Staff staffBaru = new Admin(id, nama, posisi, gaji);
+            add(staffBaru);
         }
-        count++;
+
+        if (posisi.equalsIgnoreCase("Kasir")){
+            Staff staffBaru = new Supervisor(id, nama, posisi, gaji);
+            add(staffBaru);
+        }
     }
 
     public void add(Staff staffBaru){
