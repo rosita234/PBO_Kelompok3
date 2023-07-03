@@ -13,44 +13,17 @@ public class Transaksi {
     private String namaStaff;
     private String namaPembeli;
     private ListKetTransaksi listKetTransaksi;
-    public ListPembeli listPembeli;
-    public Pembeli pembeli;
+    private ListPembeli listPembeli;
+    private Pembeli pembeli;
     private double totalBelanja;
     private double diskon;
 
-    public Transaksi(String namaStaff){
+    public Transaksi(String namaStaff, String namaPembeli){
         this.tanggalDanWaktu = waktu();
         this.idTransaksi = idBon();
         listKetTransaksi = new ListKetTransaksi();
         this.namaStaff = namaStaff;
-        namaPembeli();
-    }
-
-    public void namaPembeli(){
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Ada Membership (Ya/Tidak) : ");
-        String jb = sc.nextLine();
-        if (jb.equalsIgnoreCase("ya")){
-            System.out.println("=================================================");
-            System.out.print("No. Telp : ");
-            String noTelp = sc.nextLine();
-            System.out.println();
-            if(listPembeli.cekPembeli(noTelp)){
-                PembeliNode p = listPembeli.getHead();
-                while (p != null){
-                    if(noTelp.equalsIgnoreCase(p.getItem().getNoTelp())){
-                        pembeli = p.getItem();
-                        namaPembeli = pembeli.getNama();
-                    }
-                    p = p.getNext();
-                }
-            }
-        }
-        else{
-            pembeli = null;
-            namaPembeli = "";
-        }
-        sc.close();
+        this.namaPembeli = namaPembeli;
     }
 
     public String idBon(){
@@ -128,7 +101,24 @@ public class Transaksi {
         return pembeli;
     }
 
-    public boolean adaTukarPoin() {
+    public double getDiskon() {
+        return diskon;
+    }
+
+    public double getTotalBelanja() {
+        return totalBelanja;
+    }
+
+    public void setDiskon(double diskon) {
+        this.diskon = diskon;
+    }
+
+    public void setTotalBelanja(double totalBelanja) {
+        this.totalBelanja = totalBelanja;
+    }
+    
+
+    public boolean adaTukarPoin(Pembeli pembeli) {
         if(pembeli != null){
             Scanner sc = new Scanner(System.in);
             System.out.println("<<System>> Tukar poin ? (YA/TIDAK)");
@@ -139,7 +129,7 @@ public class Transaksi {
         return false;
     }
 
-    public void tukarPoinDapatDiskon(){
+    public void tukarPoinDapatDiskon(Pembeli pembeli){
         diskon = 0;
         if(pembeli != null){
             Scanner sc = new Scanner(System.in);
@@ -165,8 +155,8 @@ public class Transaksi {
         }
     }
 
-    public void total(){
-        if(adaTukarPoin()){
+    public void total(Pembeli pembeli){
+        if(adaTukarPoin(pembeli) && pembeli != null){
             double banyakDiskon = listKetTransaksi.totalHarga() * diskon;
             System.out.println(String.format("Total Item    :           Rp. %d",listKetTransaksi.totalHarga()));
             System.out.println(String.format("Total Disc    :          -Rp. %.3f",banyakDiskon));
@@ -176,7 +166,7 @@ public class Transaksi {
         }
         else{
             totalBelanja = listKetTransaksi.totalHarga();
-            System.out.println(String.format("Total Item    :           Rp. %d",totalBelanja));
+            System.out.println(String.format("Total Item    :           Rp. %.3f",totalBelanja));
         }
     }
 
@@ -185,8 +175,8 @@ public class Transaksi {
         StringBuilder sb = new StringBuilder();
         sb.append(String.format("Tanggal : %s\nID Bon  : %s Kasir : %s\n%s", 
         tanggalDanWaktu, idTransaksi, namaStaff,listKetTransaksi));
-        total();
-        sb.append(String.format("Pembeli : %s",this.pembeli.getNama()));
+        System.out.println("===================================");
+        total(pembeli);
         return sb.toString();
     }
 

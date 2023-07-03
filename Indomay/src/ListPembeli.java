@@ -60,15 +60,26 @@ public class ListPembeli {
         count++;
     }
 
-    public boolean cekPembeli(String noTelp){
-        if(!isEmpty()){
-            PembeliNode p = head;
-            while (p != null){
-                if(noTelp.equalsIgnoreCase(p.getItem().getNoTelp()))return true;
-                    p = p.getNext();
-            }
+    //public boolean cekPembeli(String noTelp){
+        //if(!isEmpty()){
+            //PembeliNode p = head;
+            //while (p != null){
+                //if(noTelp.equalsIgnoreCase(p.getItem().getNoTelp()))return true;
+                    //p = p.getNext();
+            //}
+        //}
+        //return false;
+    //}
+
+    public Pembeli cekPembeli(String noTelp, ListPembeli listPembeli){
+        Pembeli pembeli = null;
+        PembeliNode p = listPembeli.getHead();
+        while (p != null){
+            if(p.getItem().getNoTelp().equals(noTelp)){
+                pembeli = p.getItem();
+            }p = p.getNext();
         }
-        return false;
+        return pembeli;
     }
 
     public String getNamaPembeli(String noTelp){

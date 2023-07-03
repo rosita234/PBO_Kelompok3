@@ -47,8 +47,8 @@ public class ListTransaksi {
         count++;
     }
 
-    public void add(String namaStaff){
-        Transaksi transaksi = new Transaksi(namaStaff);
+    public void add(String namaStaff, String namaPembeli){
+        Transaksi transaksi = new Transaksi(namaStaff, namaPembeli);
         TransaksiNode newNode = new TransaksiNode(transaksi);
         
         if(isEmpty()){
@@ -60,6 +60,8 @@ public class ListTransaksi {
         }
         count++;
     }
+
+    
     
     @Override
     public String toString() {

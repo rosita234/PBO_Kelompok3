@@ -1,0 +1,6 @@
+ID;NAMA;POSISI;GAJI;USERNAME;PASSWORD;ROLE
+S001;Stephanie;Pemilik;0;stepi;qwerty;Supervisor
+S002;Aurelya;Manajer;6000000;ayaya;asdfg;Admin
+S003;Rosita;Kasir;4000000;kakros;zxcvb;Kasir
+S004;Louin;Kasir;4000000;leeman;poiuy;Kasir
+S005;Alfredo;Kasir;4000000;alfalf;lkjhg;Kasir

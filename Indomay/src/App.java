@@ -6,6 +6,7 @@ public class App {
     static ListBarang listBarang = new ListBarang();
     static ListPembeli listPembeli = new ListPembeli();
     static ListStaff listStaff = new ListStaff();
+    static ListTransaksi historyTransaksi = new ListTransaksi();
     static Staff staff;
     static Pembeli pembeli;
     static ListTransaksi listTransaksi  = new ListTransaksi();
@@ -45,8 +46,6 @@ public class App {
                             if (role.equalsIgnoreCase("Kasir")){
                                 switch(opsi){
                                     case "1":
-                                        listBarang();
-                                        System.out.println();
                                         transaksi();
                                         break;
                                     case "2":
@@ -180,67 +179,84 @@ public class App {
     }
 
     public static void transaksi(){
-        Transaksi newTransaksi = new Transaksi(staff.getName());
         System.out.print("Ada Membership (Ya/Tidak) : ");
         String adaMember = sc.nextLine();
+        String namaPembeli = "-";
         if (adaMember.equalsIgnoreCase("ya")){
             System.out.println("=================================================");
             System.out.print("No. Telp : ");
             String noTelp = sc.nextLine();
             System.out.println();
-            if(listPembeli.cekPembeli(noTelp)){
-                PembeliNode p = listPembeli.getHead();
-                while (p != null){
-                    if(noTelp.equalsIgnoreCase(p.getItem().getNoTelp())){
-                        pembeli = p.getItem(); //simpan data pembeli
-                    }
-                    p = p.getNext();
-                }
-            }
+            pembeli = listPembeli.cekPembeli(noTelp, listPembeli);
+            namaPembeli = pembeli.getNama();
         }
         else{
             pembeli = null;
         }
+
+        Transaksi newTransaksi = new Transaksi(staff.getName(),namaPembeli);
         
         listBarang(); //tampilkan list barang
         String jb = "X";
-        //Scan Barang
-        System.out.println("Menu");
-        System.out.println("==========================================");
-        System.out.println("1. Scan Barang");
-        System.out.println("2. Hapus Barang di Transaski");
-        System.out.println("3. Tukar Poin");
-        System.out.println("4. Transaksi selesai");
-        System.out.println("==========================================");
-        System.out.print("Opsi : ");
-        String menuTransaksi = sc.nextLine();
-        switch(menuTransaksi){
-            case "1":
-                do{
-                    System.out.print("Kode Barang   : ");
-                    String kode = sc.nextLine();
-                    System.out.print("Jumlah Barang : ");
-                    String jumlah = sc.nextLine();
-                    System.out.println();
-                    newTransaksi.getListKetTransaksi().add(staff.getId(), listStaff, kode, Integer.parseInt(jumlah));
-                    System.out.println("==========================================");
-                    System.out.println("<< Tekan Enter untuk Lanjut Scan>>");
-                    System.out.println("<< Ketik X untuk Berhenti Scan>>");
-                    jb = sc.nextLine();
-                }while(!jb.equalsIgnoreCase("X"));
-            case "2":
-                System.out.println("Nama Barang : ");
-                String namaBarang = sc.nextLine();
-                newTransaksi.getListKetTransaksi().delete(staff.getId(), listStaff, namaBarang);
-            case "3":
-            case "4":
-            default:
-                System.out.println("<<System>> Harap Memilih Opsi yang Tersedia");
-                break;
+        boolean menuTransaksi = true;
+        do{
+            System.out.println("Menu");
+            System.out.println("==========================================");
+            System.out.println("1. Scan Barang");
+            System.out.println("2. Hapus Barang di Transaski");
+            System.out.println("3. Tukar Poin");
+            System.out.println("4. Transaksi selesai");
+            System.out.println("==========================================");
+            System.out.print("Opsi : ");
+            String opsiMenuTransaksi = sc.nextLine();
+            switch(opsiMenuTransaksi){
+                case "1":
+                    do{
+                        System.out.print("Kode Barang   : ");
+                        String kode = sc.nextLine();
+                        System.out.print("Jumlah Barang : ");
+                        String jumlah = sc.nextLine();
+                        System.out.println();
+                        newTransaksi.getListKetTransaksi().add(staff.getId(), listStaff, kode, Integer.parseInt(jumlah));
+                        System.out.println("==========================================");
+                        System.out.println("<< Tekan Enter untuk Lanjut Scan>>");
+                        System.out.println("<< Ketik X untuk Berhenti Scan>>");
+                        jb = sc.nextLine();
+                    }while(!jb.equalsIgnoreCase("X"));
+                    break;
+                case "2":
+                    System.out.println(newTransaksi.getListKetTransaksi());
+                    System.out.println("Nama Barang : ");
+                    String namaBarang = sc.nextLine();
+                    newTransaksi.getListKetTransaksi().delete(staff.getId(), listStaff, namaBarang);
+                    break;
+                case "3":
+                    if(pembeli != null){
+                        newTransaksi.tukarPoinDapatDiskon(pembeli);
+                    }
+                    else{
+                        System.out.println("Pembeli tidak mempunyai membership");
+                    }
+                    break;
+                case "4":
+                    if(newTransaksi.getTotalBelanja() != 0){
+                        System.out.println(newTransaksi);
+                        listTransaksi.add(newTransaksi);
+                        pembeli = null;
+                        menuTransaksi = false;
+                    }
+                    else{
+                        System.out.println("Transaski kosong");
+                    }
+                    pembeli = null;
+                    menuTransaksi = false;
+                    break;
+                default:
+                    System.out.println("<<System>> Harap Memilih Opsi yang Tersedia");
+                    break;
 
-        }
-
-        listTransaksi.add(newTransaksi);
+            }
+        }while(menuTransaksi);
     }
 
     public static void listBarang(){
@@ -266,7 +282,7 @@ public class App {
     }
 
     public static void historyTransaksi(){
-        System.out.println(listTransaksi);
+        System.out.println(historyTransaksi);
     }
 
     public static void cekHistoryTransaksi(){
