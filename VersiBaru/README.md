@@ -1,8 +1,29 @@
-## Getting Started
+## Sistem Informasi Toko Kelontong
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Sistem Informasi toko kelontong adalah sebuah sistem yang dirancang untuk mengelola dan membantu
+toko kelontong. Sistem informasi ini membantu dalam aktivitas sehari-hari seperti melakukan transaksi
+dan pembukuan.
 
-## Folder Structure
+## Fitur yang tersedia adalah
+
+Fitur yang tersedia :
+- Transaksi
+- History Transaksi
+- Tambah barang, staff, dan pembeli
+- Edit informasi atau status dari barang dan staff
+- History barang
+- Membership
+    - Penambahan poin pembeli sesuai total belanja dari transaksi
+    - Poin dapat digunakan untuk mendapatkan diskon
+
+## Susunan Tim
+
+Ketua   : Rosita Darianty (03081220014)
+Anggota : Alfredo (03081220011)
+          Aurelya (03081220041)
+          Edbert Muis (03081220022)
+          Louin Liman (03081220043)
+          Stephanie (03081220016)
 
 The workspace contains two folders by default, where:
 
