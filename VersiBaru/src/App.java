@@ -452,7 +452,7 @@ public class App {
         for (Transaksi x : historyTransaksi) {
             System.out.println();
             System.out.println("Transaksi " + idx++);
-            System.out.println("========================================");
+            System.out.println("==========================================================");
             System.out.println(x);
             historyAda = true;
         }
@@ -465,9 +465,9 @@ public class App {
         int idx = 1;
         boolean historyAda = false;
         System.out.println();
+        System.out.println("No. Tanggal              Operasi ID   Nama                 Keterangan");
+        System.out.println("==============================================================================");
         for (HistoryBarang x : historyBarang) {
-            System.out.println("No. Tanggal              Operasi ID   Nama                 Keterangan");
-            System.out.println("==============================================================================");
             System.out.println(String.format("%2d. %s", idx++, x));
             historyAda = true;
         }
@@ -727,13 +727,13 @@ public class App {
                     break;
                 case "5":
                     double totalHarga = 0;
-                    for(int i = 0; i < transaksiBaru.getKetTransaksi().size(); i++){
-                            totalHarga += transaksiBaru.getKetTransaksi().get(i).getHargaBarang();
-                        }
-                    transaksiBaru.setTotalHarga(totalHarga);
-                    if(transaksiBaru.getTotalHarga() != 0){
-                        transaksiBaru.setBanyakDiskon(transaksiBaru.getTotalHarga() * diskon);
-                        transaksiBaru.setTotalBelanja(transaksiBaru.getTotalHarga()-transaksiBaru.getBanyakDiskon());
+                    for (int i = 0; i < transaksiBaru.getKetTransaksi().size(); i++){
+                        totalHarga += transaksiBaru.getKetTransaksi().get(i).getHargaBarang();
+                    }
+                    transaksiBaru.setTotalHargaTransaksi(totalHarga);
+                    if(transaksiBaru.getTotalHargaTransaksi() != 0){
+                        transaksiBaru.setBanyakDiskon(transaksiBaru.getTotalHargaTransaksi() * diskon);
+                        transaksiBaru.setTotalBelanja(transaksiBaru.getTotalHargaTransaksi()-transaksiBaru.getBanyakDiskon());
 
                         if(diskon != 0){
                             pembeliYangBeli.getMembership().setPoin(pembeliYangBeli.getMembership().getPoin() + transaksiBaru.getTotalBelanja()/10000);
@@ -752,11 +752,11 @@ public class App {
                         pembeliYangBeli.getMembership().setPoin(pembeliYangBeli.getMembership().getPoin()+banyakPoinYangInginDitukar);
                         diskon = 0;
                         transaksiBaru.setBanyakDiskon(0);
-                        transaksiBaru.setTotalHarga(0);
+                        transaksiBaru.setTotalHargaTransaksi(0);
                         transaksiBaru.setTotalBelanja(0);
                     }
                     else{
-                        transaksiBaru.setTotalHarga(0);
+                        transaksiBaru.setTotalHargaTransaksi(0);
                     }
                     transaksiBaru = null;
                     System.out.println("<<System>> Transaksi Batal");
@@ -779,6 +779,7 @@ public class App {
                 while(scanFile.hasNextLine()){
                     String baris = scanFile.nextLine();
                     String[] nilai = baris.split(";");
+                    //Tambah Staff, set UserLogin, set HakAkses
                     if (!baris.equals("ID;NAMA;POSISI;GAJI;USERNAME;PASSWORD;ROLE")) {
                         if (nilai[6].equalsIgnoreCase("Kasir")){
                             Staff staffBaru = new Kasir(nilai[0], nilai[1],nilai[2], Integer.parseInt(nilai[3]));
@@ -815,8 +816,12 @@ public class App {
                     String baris = scanFile.nextLine();
                     String[] nilai = baris.split(";");
                     if (!baris.equals("KODE;NAMA;JUMLAH;HARGA")) {
+                        //Tambah Barang
                         Barang barangBaru = new Barang(nilai[0], nilai[1], Integer.parseInt(nilai[2]), Integer.parseInt(nilai[3]));
                         barang.add(barangBaru);
+                        //Tammbah HistoryBarang
+                        HistoryBarang historyBaru = new HistoryBarang("Add", "S001", "Stephanie", nilai[0]);
+                        historyBarang.add(historyBaru);
                     }
                 }
                 scanFile.close();
@@ -827,6 +832,7 @@ public class App {
                     String baris = scanFile.nextLine();
                     String[] nilai = baris.split(";");
                     if (!baris.equals("NOMOR;NAMA;POIN")) {
+                        //Tambah Pembeli, Set Membership
                         Pembeli pembeliBaru = new Pembeli(nilai[1], nilai[0]);
                         pembeliBaru.getMembership().setPoin(Double.parseDouble(nilai[2]));
                         pembeli.add(pembeliBaru);
@@ -837,4 +843,23 @@ public class App {
         }catch (Exception e){
             System.out.println("Error : " + e.getMessage());
         }
+
+        //Tambah Transaksi, set ketTransaksi
+        Transaksi transaksiSatu = new Transaksi("Stephanie", "");
+        KetTransaksi ketTransaksiSatu = new KetTransaksi("A001",namaBarang("A001"), 1, hargaBarang("A001"),1 * hargaBarang("A001"));
+        transaksiSatu.getKetTransaksi().add(ketTransaksiSatu);
+        transaksiSatu.setTotalHargaTransaksi(1 * hargaBarang("A001"));
+        historyTransaksi.add(transaksiSatu);
+
+        Transaksi transaksiDua = new Transaksi("Stephanie", "");
+        KetTransaksi ketTransaksiDua = new KetTransaksi("A003",namaBarang("A003"), 1, hargaBarang("A003"),1 * hargaBarang("A003"));
+        transaksiDua.getKetTransaksi().add(ketTransaksiDua);
+        transaksiDua.setTotalHargaTransaksi(1 * hargaBarang("A003"));
+        historyTransaksi.add(transaksiDua);
+
+        Transaksi transaksiTiga = new Transaksi("Stephanie", "");
+        KetTransaksi ketTransaksiTiga = new KetTransaksi("A002",namaBarang("A002"), 1, hargaBarang("A002"),1 * hargaBarang("A002"));
+        transaksiTiga.getKetTransaksi().add(ketTransaksiTiga);
+        transaksiTiga.setTotalHargaTransaksi(1 * hargaBarang("A002"));
+        historyTransaksi.add(transaksiTiga);
 }}

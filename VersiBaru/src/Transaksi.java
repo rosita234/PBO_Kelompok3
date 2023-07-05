@@ -9,7 +9,7 @@ public class Transaksi {
     private String namaStaff;
     private ArrayList<KetTransaksi> ketTransaksi;
     private String noTelpPembeli;
-    private double totalHarga; //total sebelum diskon
+    private double totalHargaTransaksi; //total sebelum diskon
     private double banyakDiskon;
     private double totalBelanja; //total sebelum diskon
 
@@ -80,8 +80,8 @@ public class Transaksi {
         return totalBelanja;
     }
 
-    public double getTotalHarga() {
-        return totalHarga;
+    public double getTotalHargaTransaksi() {
+        return totalHargaTransaksi;
     }
 
     public void setBanyakDiskon(double banyakDiskon) {
@@ -92,8 +92,8 @@ public class Transaksi {
         this.totalBelanja = totalBelanja;
     }
 
-    public void setTotalHarga(double totalHarga) {
-        this.totalHarga = totalHarga;
+    public void setTotalHargaTransaksi(double totalHargaTransaksi) {
+        this.totalHargaTransaksi = totalHargaTransaksi;
     }
 
     public String getNoTelpPembeli() {
@@ -120,7 +120,7 @@ public class Transaksi {
         sb.append(String.format("Tanggal : %s\nID Bon  : %s Kasir : %s\n==========================================================\n%s\n", 
         tanggalDanWaktu, idTransaksi, namaStaff,listKetTransaksi()));
         sb.append("==========================================================\n");
-        sb.append(String.format("Total Harga   :                          Rp. %.3f\n",totalHarga));
+        sb.append(String.format("Total Harga   :                          Rp. %.3f\n",totalHargaTransaksi));
         if(banyakDiskon != 0){
             sb.append(String.format("Total Disc    :                         -Rp. %.3f\n",banyakDiskon));
             sb.append(String.format("Total Belanja :                          Rp. %.3f\n",totalBelanja));
