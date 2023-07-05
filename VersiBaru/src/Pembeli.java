@@ -1,7 +1,7 @@
 public class Pembeli {
 
-    public String nama;
-    public String noTelp;
+    public String namaPembeli;
+    public String noTelpPembeli;
     private Membership membership;
 
     public Pembeli() {
@@ -9,25 +9,25 @@ public class Pembeli {
     }
 
     public Pembeli(String nama, String noTelp) {
-        this.nama = nama;
-        this.noTelp = noTelp;
+        this.namaPembeli = nama;
+        this.noTelpPembeli = noTelp;
         membership = new Membership(0);
     }
 
-    public String getNama() {
-        return this.nama;
+    public String getNamaPembeli() {
+        return namaPembeli;
     }
 
-    public void setNama(String nama) {
-        this.nama = nama;
+    public String getNoTelpPembeli() {
+        return noTelpPembeli;
     }
 
-    public String getNoTelp() {
-        return this.noTelp;
+    public void setNamaPembeli(String namaPembeli) {
+        this.namaPembeli = namaPembeli;
     }
 
-    public void setNoTelp(String noTelp) {
-        this.noTelp = noTelp;
+    public void setNoTelpPembeli(String noTelpPembeli) {
+        this.noTelpPembeli = noTelpPembeli;
     }
 
     public Membership getMembership() {
@@ -41,8 +41,8 @@ public class Pembeli {
     @Override
     public String toString() {
         return String.format("%-20s %-12s %s", 
-        nama,
-        noTelp,
+        namaPembeli,
+        noTelpPembeli,
         membership) ;
     }
 

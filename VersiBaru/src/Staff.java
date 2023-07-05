@@ -1,7 +1,7 @@
 public abstract class Staff implements MenuAkses{ //superclass //interface
     
     private String idStaff;
-    private String name;
+    private String namaStaff;
     private String posisi;
     private int gaji;
     private UserLogin userLogin;
@@ -12,14 +12,14 @@ public abstract class Staff implements MenuAkses{ //superclass //interface
 
     public Staff(String idStaff, String name, String posisi, int gaji){
         this.idStaff = idStaff;
-        this.name = name;
+        this.namaStaff = name;
         this.posisi = posisi;
         this.gaji = gaji;
         this.userLogin = new UserLogin();
     }
     //Constructor all Fields
-    public String getName(){
-        return name;
+    public String getNamaStaff() {
+        return namaStaff;
     }
 
     public int getGaji() {
@@ -38,8 +38,8 @@ public abstract class Staff implements MenuAkses{ //superclass //interface
         return userLogin;
     }
 
-    public void setName(String a){
-        this.name = a;
+    public void setNamaStaff(String namaStaff) {
+        this.namaStaff = namaStaff;
     }
 
     public void setGaji(int gaji) {
@@ -62,7 +62,7 @@ public abstract class Staff implements MenuAkses{ //superclass //interface
     public String toString(){
         return String.format("%-4s %-20s %-10s Rp. %-20d %s", 
         idStaff,
-        name,
+        namaStaff,
         posisi,
         gaji,
         userLogin

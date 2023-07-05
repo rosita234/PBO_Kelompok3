@@ -36,7 +36,7 @@ public class App {
                     System.out.println();
 
                     if(login(username,password)){
-                        String namaStaff = staffYangLogin.getName();
+                        String namaStaff = staffYangLogin.getNamaStaff();
                         String role = staffYangLogin.getUserLogin().getHakAkses().getRole();
                         System.out.println("<<System>> Hello, "+ namaStaff);
                         boolean menu = true;
@@ -203,7 +203,7 @@ public class App {
         Barang barangBaru = new Barang(kode, nama, jumlah, harga);
         barang.add(barangBaru);
 
-        HistoryBarang historyBaru = new HistoryBarang("Add", staffYangLogin.getIdStaff(),staffYangLogin.getName(),barangBaru.toString());
+        HistoryBarang historyBaru = new HistoryBarang("Add", staffYangLogin.getIdStaff(),staffYangLogin.getNamaStaff(),barangBaru.toString());
         historyBarang.add(historyBaru);
         System.out.println("<<System>> Barang Berhasil Ditambah");
         System.out.println();
@@ -218,7 +218,7 @@ public class App {
                 barang.remove(i);
                 kodeAda = true;
                 String ket = String.format("%s", kode);
-                HistoryBarang historyBaru = new HistoryBarang("Delete", staffYangLogin.getIdStaff(), staffYangLogin.getName(), ket);
+                HistoryBarang historyBaru = new HistoryBarang("Delete", staffYangLogin.getIdStaff(), staffYangLogin.getNamaStaff(), ket);
                 historyBarang.add(historyBaru);
                 System.out.println("<<System>> Barang Berhasil Dihapus");
             }
@@ -274,7 +274,7 @@ public class App {
                         sc.nextLine();
                     }
                     kodeAda = true;
-                    HistoryBarang historyBaru = new HistoryBarang("Delete", staffYangLogin.getIdStaff(), staffYangLogin.getName(), ket);
+                    HistoryBarang historyBaru = new HistoryBarang("Delete", staffYangLogin.getIdStaff(), staffYangLogin.getNamaStaff(), ket);
                     historyBarang.add(historyBaru);
                     System.out.println("<<System>> Barang Berhasil Diedit");
                 }
@@ -369,7 +369,7 @@ public class App {
                         staff.get(i).getUserLogin().getHakAkses().setRole(roleBaru);
                     }
                     else if (opsi.equals("4")){
-                        String ket = String.format("%s %-20s Dipecat", idStaff,staff.get(i).getName());
+                        String ket = String.format("%s %-20s Dipecat", idStaff,staff.get(i).getNamaStaff());
                         staff.remove(i);
                         System.out.println(ket);
                     }
@@ -400,9 +400,9 @@ public class App {
         String noTelp = sc.nextLine();
         boolean noTelpAda = false;
         for (int i = 0; i < pembeli.size(); i++){
-            if (pembeli.get(i).getNoTelp().equals(noTelp)){
+            if (pembeli.get(i).getNoTelpPembeli().equals(noTelp)){
                 System.out.println();
-                System.out.println("Nama : " + pembeli.get(i).getNama());
+                System.out.println("Nama : " + pembeli.get(i).getNamaPembeli());
                 System.out.println("Poin : " + pembeli.get(i).getMembership().getPoin());
                 noTelpAda = true;
             }
@@ -486,10 +486,10 @@ public class App {
             String noTelp = sc.nextLine();
             System.out.println();
             for (int i = 0; i < pembeli.size(); i++){
-                if(pembeli.get(i).getNoTelp().equals(noTelp)){
+                if(pembeli.get(i).getNoTelpPembeli().equals(noTelp)){
                     pembeliYangBeli = pembeli.get(i);
                     noTelpAda = true;
-                    System.out.println("<<System>> Hai, " + pembeliYangBeli.getNama());
+                    System.out.println("<<System>> Hai, " + pembeliYangBeli.getNamaPembeli());
                     menuTransaksi();
                 }
             }
@@ -583,9 +583,9 @@ public class App {
         boolean masihProsesTransaksi = true;
         String noTelp = "";
         if (pembeliYangBeli != null){
-            noTelp = pembeliYangBeli.getNoTelp();
+            noTelp = pembeliYangBeli.getNoTelpPembeli();
         }
-        Transaksi transaksiBaru = new Transaksi(staffYangLogin.getName(),noTelp);
+        Transaksi transaksiBaru = new Transaksi(staffYangLogin.getNamaStaff(),noTelp);
         double diskon = 0;
         do{
             System.out.println();
