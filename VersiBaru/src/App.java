@@ -190,23 +190,32 @@ public class App {
         return false;
     }
 
-    public static void tambahBarang(){
-        System.out.print("Kode   : ");
-        String kode = sc.nextLine();
-        System.out.print("Nama   : ");
-        String nama = sc.nextLine();
-        System.out.print("Jumlah : ");
-        int jumlah = sc.nextInt();
-        System.out.print("Harga  : ");
-        int harga = sc.nextInt();
-        sc.nextLine();
-        Barang barangBaru = new Barang(kode, nama, jumlah, harga);
-        barang.add(barangBaru);
-
-        HistoryBarang historyBaru = new HistoryBarang("Add", staffYangLogin.getIdStaff(),staffYangLogin.getNamaStaff(),barangBaru.toString());
-        historyBarang.add(historyBaru);
-        System.out.println("<<System>> Barang Berhasil Ditambah");
-        System.out.println();
+    public static void tambahBarang() {
+        //Exception Handling
+        try {
+            System.out.print("Kode   : ");
+            String kode = sc.nextLine();
+            System.out.print("Nama   : ");
+            String nama = sc.nextLine();
+            //Untuk Handling Jumlah dan Harga
+            System.out.print("Jumlah : ");
+            int jumlah = Integer.parseInt(sc.nextLine());
+            System.out.print("Harga  : ");
+            int harga = Integer.parseInt(sc.nextLine());
+            
+            Barang barangBaru = new Barang(kode, nama, jumlah, harga);
+            barang.add(barangBaru);
+            
+            HistoryBarang historyBaru = new HistoryBarang("Add", staffYangLogin.getIdStaff(), staffYangLogin.getNamaStaff(), barangBaru.getKodeBarang());
+            historyBarang.add(historyBaru);
+            
+            System.out.println("<<System>> Barang Berhasil Ditambah");
+            System.out.println();
+        } catch (NumberFormatException e) {
+            System.out.println("<<System>> Input Harus Dalam Bentuk Angka");
+            System.out.println("<<System>> Barang Gagal Ditambah");
+            System.out.println();
+        }
     }
 
     public static void hapusBarang(){
@@ -229,12 +238,15 @@ public class App {
     }
     public static void editBarang(){
         boolean kodeAda = false;
+        System.out.println();
+        System.out.println("Menu Edit Barang");
+        System.out.println("============================");
         System.out.println("1. Edit Kode Barang");
         System.out.println("2. Edit Nama Barang");
         System.out.println("3. Edit Jumlah Barang");
         System.out.println("4. Edit Harga Barang");
         System.out.println("============================");
-        System.out.print("Opsi :");
+        System.out.print("Opsi : ");
         String opsi = sc.nextLine();
         System.out.println();
     
@@ -243,40 +255,47 @@ public class App {
             String kode = sc.nextLine();
             for (int i = 0; i < barang.size(); i++){
                 if (barang.get(i).getKodeBarang().equals(kode)){
+                    kodeAda = true;
                     String ket = "";
-                    if (opsi.equals("1")){
+                    //Exception Handling
+                    try{
+                        if (opsi.equals("1")){
                         System.out.print("Kode Baru : ");
                         String kodeBaru = sc.nextLine();
                         barang.get(i).setKodeBarang(kodeBaru);
                         ket = String.format("%s -> %s", kode,kodeBaru);
+                        }
+                        else if (opsi.equals("2")){
+                            System.out.print("Nama Baru : ");
+                            String namaBaru = sc.nextLine();
+                            String namaLama = barang.get(i).getNamaBarang();
+                            barang.get(i).setNamaBarang(namaBaru);
+                            ket = String.format("%s -> %s", namaLama,namaBaru);
+                        }   
+                        else if (opsi.equals("3")){
+                            System.out.print("Jumlah Baru : ");
+                            //Handling jumlahBaru
+                            int jumlahBaru = Integer.parseInt(sc.nextLine());
+                            int jumlahLama = barang.get(i).getJumlahBarang();
+                            barang.get(i).setJumlahBarang(jumlahBaru);
+                            ket = String.format("%d -> %d", jumlahLama,jumlahBaru);
+                        }
+                        else if (opsi.equals("4")){
+                            System.out.print("Harga Baru : ");
+                            //Handling hargaBaru
+                            int hargaBaru = Integer.parseInt(sc.nextLine());
+                            int hargaLama = barang.get(i).getHargaBarang();
+                            barang.get(i).setJumlahBarang(hargaBaru);
+                            ket = String.format("%d -> %d", hargaLama,hargaBaru);
+                        }
+                        HistoryBarang historyBaru = new HistoryBarang("Edit", staffYangLogin.getIdStaff(), staffYangLogin.getNamaStaff(), ket);
+                        historyBarang.add(historyBaru);
+                        System.out.println("<<System>> Barang Berhasil Diedit");
+                    }catch (NumberFormatException e) {
+                        System.out.println("<<System>> Input Harus Dalam Bentuk Angka");
+                        System.out.println("<<System>> Barang Tidak Berhasil Diedit");
+                        System.out.println();
                     }
-                    else if (opsi.equals("2")){
-                        System.out.print("Nama Baru : ");
-                        String namaBaru = sc.nextLine();
-                        String namaLama = barang.get(i).getNamaBarang();
-                        barang.get(i).setNamaBarang(namaBaru);
-                        ket = String.format("%s -> %s", namaLama,namaBaru);
-                    }   
-                    else if (opsi.equals("3")){
-                        System.out.print("Jumlah Baru : ");
-                        int jumlahBaru = sc.nextInt();
-                        int jumlahLama = barang.get(i).getJumlahBarang();
-                        barang.get(i).setJumlahBarang(jumlahBaru);
-                        ket = String.format("%d -> %d", jumlahLama,jumlahBaru);
-                        sc.nextLine();
-                    }
-                    else if (opsi.equals("4")){
-                        System.out.print("Harga Baru : ");
-                        int hargaBaru = sc.nextInt();
-                        int hargaLama = barang.get(i).getHargaBarang();
-                        barang.get(i).setJumlahBarang(hargaBaru);
-                        ket = String.format("%d -> %d", hargaLama,hargaBaru);
-                        sc.nextLine();
-                    }
-                    kodeAda = true;
-                    HistoryBarang historyBaru = new HistoryBarang("Delete", staffYangLogin.getIdStaff(), staffYangLogin.getNamaStaff(), ket);
-                    historyBarang.add(historyBaru);
-                    System.out.println("<<System>> Barang Berhasil Diedit");
                 }
             }
         }
@@ -288,52 +307,59 @@ public class App {
     }
 
     public static void tambahStaff(){
-        System.out.print("ID       : ");
-        String id = sc.nextLine();
-        System.out.print("Nama     : ");
-        String nama = sc.nextLine();
-        System.out.print("Posisi   : ");
-        String posisi = sc.nextLine();
-        System.out.print("Gaji     : ");
-        int gaji = sc.nextInt();
-        sc.nextLine();
-        System.out.println("Role -> Kasir/Admin/Supervisor/Tidak Ada");
-        System.out.print("Role     : ");
-        String role = sc.nextLine();
+        //Exception Handling
+        try{
+            System.out.print("ID       : ");
+            String id = sc.nextLine();
+            System.out.print("Nama     : ");
+            String nama = sc.nextLine();
+            System.out.print("Posisi   : ");
+            String posisi = sc.nextLine();
+            System.out.print("Gaji     : ");
+            //Handling gaji
+            int gaji = Integer.parseInt(sc.nextLine());
+            System.out.println("Role -> Kasir/Admin/Supervisor/Tidak Ada");
+            System.out.print("Role     : ");
+            String role = sc.nextLine();
 
-        if (role.equalsIgnoreCase("Kasir") || role.equalsIgnoreCase("Admin")||role.equalsIgnoreCase("Supervisor")){
-            System.out.print("Username : ");
-            String username = sc.nextLine();
-            System.out.print("Password : ");
-            String password = sc.nextLine();
-            if (role.equalsIgnoreCase("Kasir")){
-                Staff staffBaru = new Kasir(id, nama, posisi, gaji);
-                staffBaru.getUserLogin().setUsername(username);
-                staffBaru.getUserLogin().setPassword(password);
-                staffBaru.getUserLogin().getHakAkses().setRole(role);
+            if (role.equalsIgnoreCase("Kasir") || role.equalsIgnoreCase("Admin")||role.equalsIgnoreCase("Supervisor")){
+                System.out.print("Username : ");
+                String username = sc.nextLine();
+                System.out.print("Password : ");
+                String password = sc.nextLine();
+                if (role.equalsIgnoreCase("Kasir")){
+                    Staff staffBaru = new Kasir(id, nama, posisi, gaji);
+                    staffBaru.getUserLogin().setUsername(username);
+                    staffBaru.getUserLogin().setPassword(password);
+                    staffBaru.getUserLogin().getHakAkses().setRole(role);
+                    staff.add(staffBaru);
+                }
+                else if (role.equalsIgnoreCase("Admin")){
+                    Staff staffBaru = new Admin(id, nama, posisi, gaji);
+                    staffBaru.getUserLogin().setUsername(username);
+                    staffBaru.getUserLogin().setPassword(password);
+                    staffBaru.getUserLogin().getHakAkses().setRole(role);
+                    staff.add(staffBaru);
+                }
+                else if (role.equalsIgnoreCase("Supervisor")){
+                    Staff staffBaru = new Supervisor(id, nama, posisi, gaji);
+                    staffBaru.getUserLogin().setUsername(username);
+                    staffBaru.getUserLogin().setPassword(password);
+                    staffBaru.getUserLogin().getHakAkses().setRole(role);
+                    staff.add(staffBaru);
+                }
+            }
+            else{
+                Staff staffBaru = new StaffBiasa(id, nama, posisi, gaji);
                 staff.add(staffBaru);
             }
-            else if (role.equalsIgnoreCase("Admin")){
-                Staff staffBaru = new Admin(id, nama, posisi, gaji);
-                staffBaru.getUserLogin().setUsername(username);
-                staffBaru.getUserLogin().setPassword(password);
-                staffBaru.getUserLogin().getHakAkses().setRole(role);
-                staff.add(staffBaru);
-            }
-            else if (role.equalsIgnoreCase("Supervisor")){
-                Staff staffBaru = new Supervisor(id, nama, posisi, gaji);
-                staffBaru.getUserLogin().setUsername(username);
-                staffBaru.getUserLogin().setPassword(password);
-                staffBaru.getUserLogin().getHakAkses().setRole(null);
-                staff.add(staffBaru);
-            }
+            System.out.println("<<System>> Staff Berhasil Ditambah");
+            System.out.println();
+        }catch (NumberFormatException e) {
+            System.out.println("<<System>> Input Harus Dalam Bentuk Angka");
+            System.out.println("<<System>> Staff Tidak Berhasil Ditambah");
+            System.out.println();
         }
-        else{
-            Staff staffBaru = new StaffBiasa(id, nama, posisi, gaji);
-            staff.add(staffBaru);
-        }
-        System.out.println("<<System>> Staff Berhasil Ditambah");
-        System.out.println();
     }
 
     public static void updateStaff(){
@@ -352,29 +378,35 @@ public class App {
             String idStaff = sc.nextLine();
             for (int i = 0; i < staff.size(); i++){
                 if (staff.get(i).getIdStaff().equals(idStaff)){
-                    if (opsi.equals("1")){
-                        System.out.println("Gaji Baru : ");
-                        int gajiBaru = sc.nextInt();
-                        staff.get(i).setGaji(gajiBaru);
-                        sc.nextLine();
-                    }
-                    else if (opsi.equals("2")){
-                        System.out.println("Posisi Baru : ");
-                        String posisiBaru = sc.nextLine();
-                        staff.get(i).setPosisi(posisiBaru);
-                    }   
-                    else if (opsi.equals("3")){
-                        System.out.println("Role Baru : ");
-                        String roleBaru = sc.nextLine();
-                        staff.get(i).getUserLogin().getHakAkses().setRole(roleBaru);
-                    }
-                    else if (opsi.equals("4")){
-                        String ket = String.format("%s %-20s Dipecat", idStaff,staff.get(i).getNamaStaff());
-                        staff.remove(i);
-                        System.out.println(ket);
-                    }
-                    System.out.println("<<System>> Staff Berhasil Diupdate");
                     idAda = true;
+                    try{
+                        //Handling gajiBaru
+                        if (opsi.equals("1")){
+                            System.out.println("Gaji Baru : ");
+                            int gajiBaru = Integer.parseInt(sc.nextLine());
+                            staff.get(i).setGaji(gajiBaru);
+                        }
+                        else if (opsi.equals("2")){
+                            System.out.println("Posisi Baru : ");
+                            String posisiBaru = sc.nextLine();
+                            staff.get(i).setPosisi(posisiBaru);
+                        }   
+                        else if (opsi.equals("3")){
+                            System.out.println("Role Baru : ");
+                            String roleBaru = sc.nextLine();
+                            staff.get(i).getUserLogin().getHakAkses().setRole(roleBaru);
+                        }
+                        else if (opsi.equals("4")){
+                            String ket = String.format("%s %-20s Dipecat", idStaff,staff.get(i).getNamaStaff());
+                            staff.remove(i);
+                            System.out.println(ket);
+                        }
+                        System.out.println("<<System>> Staff Berhasil Diupdate");
+                    }catch (NumberFormatException e) {
+                        System.out.println("<<System>> Input Harus Dalam Bentuk Angka");
+                        System.out.println("<<System>> Staff Tidak Berhasil Diupdate");
+                        System.out.println();
+                    }
                 }
             }
         }
@@ -604,42 +636,50 @@ public class App {
             String jb = "X";
             switch(pilihan){
                 case "1":
-                    do{
-                        showBarang();
-                        System.out.print("Kode Barang   : ");
-                        String kode = sc.nextLine();
-                        System.out.print("Jumlah Barang : ");
-                        int jumlah = sc.nextInt();
-                        sc.nextLine();
-                        System.out.println();
-                        if (barangAda(kode)){
-                            if(jumlahBarangLebihBanyakDari(kode, jumlah)){
-                                //cek jika barang sudah pernah discan
-                                if(barangSudahPernahDiScan(kode,transaksiBaru)){
-                                    int i = indexBarangSudahPernahDiScan(kode, transaksiBaru);
-                                    int jumlahBaru = transaksiBaru.getKetTransaksi().get(i).getJumlahBarang() + jumlah;
-                                    transaksiBaru.getKetTransaksi().get(i).setJumlahBarang(jumlahBaru);
-                                    transaksiBaru.getKetTransaksi().get(i).setTotalHarga(jumlahBaru * transaksiBaru.getKetTransaksi().get(i).getHargaBarang());
+                        //Exception Handling
+                        do{
+                            showBarang();
+                            try{
+                                System.out.print("Kode Barang   : ");
+                                String kode = sc.nextLine();
+                                //Handling jumlah
+                                System.out.print("Jumlah Barang : ");
+                                int jumlah = Integer.parseInt(sc.nextLine());
+                                System.out.println();
+                                if (barangAda(kode)){
+                                    if(jumlahBarangLebihBanyakDari(kode, jumlah)){
+                                        //cek jika barang sudah pernah discan
+                                        if(barangSudahPernahDiScan(kode,transaksiBaru)){
+                                            int i = indexBarangSudahPernahDiScan(kode, transaksiBaru);
+                                            int jumlahBaru = transaksiBaru.getKetTransaksi().get(i).getJumlahBarang() + jumlah;
+                                            transaksiBaru.getKetTransaksi().get(i).setJumlahBarang(jumlahBaru);
+                                            transaksiBaru.getKetTransaksi().get(i).setTotalHarga(jumlahBaru * transaksiBaru.getKetTransaksi().get(i).getHargaBarang());
+                                        }
+                                        else{
+                                            KetTransaksi ketTransaksi = new KetTransaksi(kode,namaBarang(kode), jumlah, hargaBarang(kode),jumlah * hargaBarang(kode));
+                                            transaksiBaru.getKetTransaksi().add(ketTransaksi);
+                                        }
+                                        kurangJumlahBarang(kode, jumlah);
+                                    }
+                                    else{
+                                        System.out.println("<<System>> Jumlah yang Dimasukkan Lebih Banyak dari yang Ada");
+                                    }
+                                    
                                 }
                                 else{
-                                    KetTransaksi ketTransaksi = new KetTransaksi(kode,namaBarang(kode), jumlah, hargaBarang(kode),jumlah * hargaBarang(kode));
-                                    transaksiBaru.getKetTransaksi().add(ketTransaksi);
+                                    System.out.println("<<System>> Kode Barang Invalid");
                                 }
-                                kurangJumlahBarang(kode, jumlah);
+                            }catch (NumberFormatException e) {
+                            System.out.println("<<System>> Input Harus Dalam Bentuk Angka");
+                            System.out.println("<<System>> Gagal Memasukkan Barang yang DiScan");
+                            System.out.println();
                             }
-                            else{
-                                System.out.println("<<System>> Jumlah yang Dimasukkan Lebih Banyak dari yang Ada");
-                            }
-                            
-                        }
-                        else{
-                            System.out.println("<<System>> Kode Barang Invalid");
-                        }
-                        System.out.println("==========================================");
-                        System.out.println("<< Tekan Enter untuk Lanjut Scan>>");
-                        System.out.println("<< Ketik X untuk Berhenti Scan>>");
-                        jb = sc.nextLine();
-                    }while(!jb.equalsIgnoreCase("X"));
+                            System.out.println("==========================================");
+                            System.out.println("<< Tekan Enter untuk Lanjut Scan>>");
+                            System.out.println("<< Ketik X untuk Berhenti Scan>>");
+                            jb = sc.nextLine();
+                        }while(!jb.equalsIgnoreCase("X"));
+                        
                     break;
                 case "2":
                     if(transaksiBaru.getKetTransaksi().size() != 0){
@@ -682,44 +722,50 @@ public class App {
                     break;
                 case "4":
                     if(pembeliYangBeli != null){
-                        System.out.println("100 Poin -> diskon 5%");
-                        System.out.println("200 Poin -> diskon 10%");
-                        System.out.println("300 Poin -> diskon 15%");
-                        System.out.println("Poin yang ditukar hanya bisa kelipatan 100");
-                        System.out.println("=================================================");
-                        System.out.print("Poin yang Ingin Ditukar : ");
-                        banyakPoinYangInginDitukar = sc.nextInt();
-                        double banyakPoinPembeli =  pembeliYangBeli.getMembership().getPoin();
-                        System.out.println();
-                        if (banyakPoinYangInginDitukar == 100 && banyakPoinPembeli >= 100){
-                            diskon = 0.05;
-                            pembeliYangBeli.getMembership().setPoin(banyakPoinPembeli-banyakPoinYangInginDitukar);
-                            System.out.println("<<System>> 100 Poin Berhasil Ditukar");
-                            System.out.println("<<System>> Diskon 5% Untuk Transaksi Ini");
-                        }
-                        else if (banyakPoinYangInginDitukar == 200 && banyakPoinPembeli >= 200){
-                            diskon = 0.1;
-                            pembeliYangBeli.getMembership().setPoin(banyakPoinPembeli-banyakPoinYangInginDitukar);
-                            System.out.println("<<System>> 200 Poin Berhasil Ditukar");
-                            System.out.println("<<System>> Diskon 10% Untuk Transaksi Ini");
-                        }
-                        else if (banyakPoinYangInginDitukar == 300 && banyakPoinPembeli >= 300){
-                            diskon = 0.15;
-                            pembeliYangBeli.getMembership().setPoin(banyakPoinPembeli-banyakPoinYangInginDitukar);
-                            System.out.println("<<System>> 300 Poin Berhasil Ditukar");
-                            System.out.println("<<System>> Diskon 15% Untuk Transaksi Ini");
-                        } 
+                        //Exception Handling
+                        try{
+                            System.out.println("100 Poin -> diskon 5%");
+                            System.out.println("200 Poin -> diskon 10%");
+                            System.out.println("300 Poin -> diskon 15%");
+                            System.out.println("Poin yang ditukar hanya bisa kelipatan 100");
+                            System.out.println("=================================================");
+                            System.out.print("Poin yang Ingin Ditukar : ");
+                            //Untuk handling banyakPoinYangInginDitukar
+                            banyakPoinYangInginDitukar = Integer.parseInt(sc.nextLine());
+                            double banyakPoinPembeli =  pembeliYangBeli.getMembership().getPoin();
+                            System.out.println();
+                            if (banyakPoinYangInginDitukar == 100 && banyakPoinPembeli >= 100){
+                                diskon = 0.05;
+                                pembeliYangBeli.getMembership().setPoin(banyakPoinPembeli-banyakPoinYangInginDitukar);
+                                System.out.println("<<System>> 100 Poin Berhasil Ditukar");
+                                System.out.println("<<System>> Diskon 5% Untuk Transaksi Ini");
+                            }
+                            else if (banyakPoinYangInginDitukar == 200 && banyakPoinPembeli >= 200){
+                                diskon = 0.1;
+                                pembeliYangBeli.getMembership().setPoin(banyakPoinPembeli-banyakPoinYangInginDitukar);
+                                System.out.println("<<System>> 200 Poin Berhasil Ditukar");
+                                System.out.println("<<System>> Diskon 10% Untuk Transaksi Ini");
+                            }
+                            else if (banyakPoinYangInginDitukar == 300 && banyakPoinPembeli >= 300){
+                                diskon = 0.15;
+                                pembeliYangBeli.getMembership().setPoin(banyakPoinPembeli-banyakPoinYangInginDitukar);
+                                System.out.println("<<System>> 300 Poin Berhasil Ditukar");
+                                System.out.println("<<System>> Diskon 15% Untuk Transaksi Ini");
+                            } 
 
-                        if(banyakPoinPembeli < banyakPoinYangInginDitukar){
-                            System.out.println("<<System>> Poin tidak cukup");
+                            if(banyakPoinPembeli < banyakPoinYangInginDitukar){
+                                System.out.println("<<System>> Poin tidak cukup");
+                            }
+                            if (banyakPoinYangInginDitukar > 300){
+                                System.out.println("<<System>> Poin yang Ditukar Maksimal 300 Poin");
+                            }
+                            if(banyakPoinYangInginDitukar % 100 != 0){
+                                System.out.println("<<System>> Poin yang ditukar hanya bisa kelipatan 100");
+                            }
+                        }catch (NumberFormatException e) {
+                            System.out.println("<<System>> Input Harus Dalam Bentuk Angka");
+                            System.out.println();
                         }
-                        if (banyakPoinYangInginDitukar > 300){
-                            System.out.println("<<System>> Poin yang Ditukar Maksimal 300 Poin");
-                        }
-                        if(banyakPoinYangInginDitukar % 100 != 0){
-                            System.out.println("<<System>> Poin yang ditukar hanya bisa kelipatan 100");
-                        }
-                        sc.nextLine();
                     }
                     else{
                         System.out.println("<<System>> Pembeli tidak mempunyai membership");
@@ -840,7 +886,7 @@ public class App {
                 }
                 scanFile.close();
             }
-        }catch (Exception e){
+        }catch (Exception e){ //Exception Handling
             System.out.println("Error : " + e.getMessage());
         }
 
