@@ -774,7 +774,7 @@ public class App {
                 case "5":
                     double totalHarga = 0;
                     for (int i = 0; i < transaksiBaru.getKetTransaksi().size(); i++){
-                        totalHarga += transaksiBaru.getKetTransaksi().get(i).getHargaBarang();
+                        totalHarga += transaksiBaru.getKetTransaksi().get(i).getHargaBarang() * transaksiBaru.getKetTransaksi().get(i).getJumlahBarang();
                     }
                     transaksiBaru.setTotalHargaTransaksi(totalHarga);
                     if(transaksiBaru.getTotalHargaTransaksi() != 0){
